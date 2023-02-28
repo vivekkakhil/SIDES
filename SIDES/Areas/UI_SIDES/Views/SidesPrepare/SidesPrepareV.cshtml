@@ -1,0 +1,171 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SIDES.ViewModels.Prepare
+@using SIDES.Enums
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="~/css/Prepare.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+          integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 30px !important;
+            padding: 0.375rem 0.75rem;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        lable {
+            font-size: 18px;
+        }
+
+        .form_1 .input_end {
+            display: flex;
+            justify-content: center !important;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="text-center">
+            Response for SSN: @Model.SidesRequest.SSN Claim Number: @Model.SidesRequest.ClaimNumber Name WILSON @Model.SidesRequest.ClaimantLastName @Model.SidesRequest.ClaimantFirstName Effective Date :
+            @Model.SidesRequest.ClaimEffectiveDate
+        </div>
+        <div style="display:none">
+            <input type="text" id="RouteId" value="@Model.SidesRequest.RequestForSeparationId" />
+        </div>
+        <h3 class="text-center claim_heading">Preparer Details</h3>
+        <form class="form_1" asp-controller="SidesPrepare" asp-action="SidesPrepareV">
+            <div class="form-group row">
+                <label for="providingResponse" class="col-sm-3 col-form-label">
+                    Who is providing the response?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <select id="providingResponse" name="SIDES_PREPARERTYPE" class="form-control" asp-items="@Model.SIDES_PREPARERTYPE">
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="companyPreparer" class="col-sm-3 col-form-label">
+                    What is the name of the prepare's company?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="companyPreparer" name="PreparerCompanyName" value="@Model.PreparerCompanyName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="telephonePreparer" class="col-sm-3 col-form-label">
+                    What is the preparer's telephone number
+                    with extension?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="telephonePreparer" name="PreparerTelephoneNumberPlusExt" value="@Model.PreparerTelephoneNumberPlusExt">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="namePreparer" class="col-sm-3 col-form-label">
+                    What is the name of preparer?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="namePreparer" name="PreparerContactName" value="@Model.PreparerContactName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="titlePreparer" class="col-sm-3 col-form-label">
+                    What is the title of preparer?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="titlePreparer" name="PreparerTitle" value="@Model.PreparerTitle">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="faxNumber" class="col-sm-3 col-form-label">
+                    What is preparer's Fax number?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" name="PreparerFaxNbr" value="@Model.PreparerFaxNbr" id="faxNumber">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="emailAddress" class="col-sm-3 col-form-label">
+                    What is preparer's e-mail address?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="emailAddress" value="@Model.PreparerEmailAddress" name="PreparerEmailAddress">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="submittedResponse" class="col-sm-3 col-form-label">
+                    Is this an amended response to a
+                    previously submitted response?(new or additional information)
+                </label>
+                <div class="col-sm-9 input_end">
+                    <select id="submittedResponse" class="form-control" name="SIDES_AMENDEDRESPONSE" asp-items="@Model.SIDES_AMENDEDRESPONSE">
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="amendedResponse" class="col-sm-3 col-form-label">
+                    What is the description of the amended
+                    response?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="amendedResponse" name="AmendedResponseDescription" value="@Model.AmendedResponseDescription">
+                </div>
+            </div>
+             <div class="row mt-3">
+                <div class=" col-sm-6 d-flex" id="Gotopage">
+                    <label id="Gotopage" class="mx-2">Go To Page</label>
+                     <select  name="Go to page" id="GotopageNext"  asp-items="Html.GetEnumSelectList<GoToNextPageEnum>()" onchange="GoToNextPageDDL()"  >
+                   <option value="" >--Select--</option>
+                  </select>
+
+                </div>
+                <div class=" col-sm-6">
+                    <input type="button" name="Cancel" value="Cancel" class="save_btn mt-2" onclick="CancelClick()">
+                    <input type="submit" name="Save" value="Save" class="save_btn mt-2">
+                    <input type="submit" name="SendResponse" value="Send Response" class="save_btn mt-2">
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
+<script src="~/js/GoToNextPage.js"> </Script> 

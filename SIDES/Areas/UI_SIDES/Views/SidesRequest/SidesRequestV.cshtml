@@ -1,0 +1,434 @@
+﻿@using SIDES.ViewModels
+@model IEnumerable<SidesRequestModel>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Pager pager  = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+<link href="style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+    integrity = "sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
+    crossorigin = "anonymous" referrerpolicy = "no-referrer" />
+
+
+<link rel="stylesheet" href="~/CSS/SidesRequest.css" >
+<div class="search_container mb-5">
+    <p class="search_title mb-5">
+        Separation Information Request
+    </p>
+    <div class="container">
+            <div class="row search_btn justify-content-center mb-5">
+                <button class="btn" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample" width="30%" style="position:relative;">
+                    Search Data <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <div class="row search_box justify-content-center">
+                    <label for="employee">Employee</label>
+                    <input id="employee" class="search_input" type="text" placeholder="SSN/ Name/ Claim No." />
+               @* <i class="fa fa-times" aria-hidden="true"></i>*@
+                </div>
+                <p class="text-center or_text" style="font-size: 16px; color: #919191;">or</p>
+                <div class="row search_box justify-content-center">
+                    <label for="employer">Employer</label>
+                    <input id="employer" class="search_input" type="text" placeholder="Employee Name" />
+                </div>
+                <p class="text-center or_text" style="font-size: 16px; color: #919191;">or</p>
+                <div class="row search_box justify-content-center">
+                    <label for="from">Date Range</label>
+                    <input type="date" id="fromDate" class="date_input"  name="from"
+                           placeholder="from" min="1997-01-01" max="2030-12-31">
+                    <input type="date" id="toDate" class="date_input" name="to" placeholder="to" min="1997-01-01" max="2030-12-31">
+                </div>
+            <div class="row justify-content-center">
+                <div class="btn_box1">
+                    <input type="button" value="Go" id="btngo" class="btngoClick">
+                    <input type="button" value="Cancel" id="btncancel" class="btngoClick">
+                </div>
+            </div>
+            </div>
+        </div>
+    
+</div>
+<table id="myTable">
+    <thead>
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Claim No.</th>
+            <th scope="col">SSN</th>
+            <th scope="col">FEIN</th>
+            <th scope="col">Name</th>
+            <th scope="col">Employer</th>
+            <th scope="col">Requested</th>
+            <th scope="col">Response Due</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+
+            foreach (var Item in Model)
+            {
+                i++;
+                string tableid = "table" + Convert.ToString(@i);
+                string datatarget = ".table" + Convert.ToString(@i);
+
+                                                                                                                                                                                                    <tr data-toggle="collapse" id="table" data-target=@datatarget >
+                                                                                                                                                                                                        <td id="RequestBtn" scope="row" data-label="Status"><input type="button" class="btnSelect" value="@Item.RequestForSeparationId"></td>
+
+                                                                                                                                                                                                        <td class="ClaimNumber" id="ClaimNumber" data-label="Claim No.">@Item.ClaimNumber</td>
+                                                                                                                                                                                                        <td class="SSN" id="SSN" data-label="SSN">@Item.SSN</td>
+                                                                                                                                                                                                        <td class="FEIN" id="FEIN" data-label="FEIN">@Item.FEIN</td>
+                                                                                                                                                                                                        <td class="Name" id="Name" data-label="Name">@Item.ClaimantFirstName</td>
+                                                                                                                                                                                                        <td class="Employer" id="Employer" data-label="Employer">@Item.EmployerName</td>
+                                                                                                                                                                                                        <td class="RequestDate" id="RequestDate" data-label="Requested">@Item.RequestDate</td>
+                                                                                                                                                                                                        <td class="ResponseDueDate" id="ResponseDueDate" data-label="Response Due">@Item.ResponseDueDate</td>
+                                                                                                                                                                                                        <td class="Status" id="Status" data-label="Status">@Item.RecordStatus</td>
+                                                                                                                                                                                                        <td class="checkbox"><input type="checkbox"></td>
+                                                                                                                                                                                                    </tr>
+                                                                                                                                                                                                    <tr class="collapse collapse_div @tableid">
+                                                                                                                                                                                                        <td scope="row" data-label="Status"><input type="button" value="@Item.RequestForSeparationId"></td>
+
+                                                                                                                                                                                                        <td data-label="Claim No.">@Item.ClaimNumber</td>
+                                                                                                                                                                                                        <td data-label="SSN">@Item.SSN</td>
+                                                                                                                                                                                                        <td data-label="FEIN">@Item.FEIN</td>
+                                                                                                                                                                                                        <td data-label="Name">@Item.ClaimantFirstName</td>
+                                                                                                                                                                                                        <td data-label="Employer">@Item.EmployerName</td>
+                                                                                                                                                                                                        <td data-label="Requested">@Item.RequestDate</td>
+                                                                                                                                                                                                        <td data-label="Response Due">@Item.ResponseDueDate</td>
+                                                                                                                                                                                                        <td data-label="Status">@Item.RecordStatus</td>
+                                                                                                                                                                                                        <td><input type="checkbox"></td>
+                                                                                                                                                                                                    </tr>
+
+            }
+        }
+       
+    </tbody>
+</table>
+<div id="PaginationTab" class="container">
+    @if (pager.TotalPages > 0)
+
+    {
+        <ul class="pagination justify-content-end">
+            @if (pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a  class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="1" >First</a>
+                </li>
+                <li>
+                    <a   class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@(pager.CurrentPage - 1)" >Previous</a>
+                </li>
+            }
+
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li>
+                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@(pager.CurrentPage+1)">Next</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@(pager.TotalPages)">Last</a>
+                </li>
+            }
+
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                // string p = pge.ToString();
+                <li class="page-item @(pge == pager.CurrentPage ? "active": "")">
+                    <a class="page-link"    asp-asp-area="UI_SIDES"  asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@pge"> @pge </a>
+                    @*//<@Html.ActionLink(p,"SidesRequestV","SidesRequest",new(i),null)></>*@
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>       
+<script type="text/javascript">
+    //calculation of the first and the last day of the current week
+    var dt = new Date()  
+    var currentWeekDay = dt.getDay();
+    var lessDays = currentWeekDay == 0 ? 6 : currentWeekDay - 1
+    var wkStart = new Date(new Date(dt).setDate(dt.getDate() - lessDays));
+    var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+    
+    
+
+    //calculation of the todate and binding
+    var todateRange = new Date(wkStart);
+    var toDate = todateRange.getDate().toString();
+    
+    if(toDate.length == 1){
+        toDate = "0"+toDate;
+    }
+    var toMonth = (todateRange.getMonth() + 1).toString();
+    if(toMonth.length == 1){
+        toMonth = "0" + toMonth
+
+    }
+    var toYear = todateRange.getFullYear();
+    var CombinedtoDate = toYear + "-" + toMonth + "-" + toDate;
+    $('#fromDate').val(CombinedtoDate);
+
+   
+
+    //Calculation of the fromDate
+    var fromdateRange = new Date(wkEnd);
+    var fromDate = fromdateRange.getDate().toString();
+    if(fromDate.length == 1)
+    {
+        fromDate = "0"+fromDate;
+    }
+    var fromMonth = (fromdateRange.getMonth() + 1).toString();
+    if (fromMonth.length == 1) {
+        fromMonth = "0" + fromMonth
+
+    }
+    var fromYear = fromdateRange.getFullYear();
+    var CombinedfromDate = fromYear + "-" + fromMonth + "-" + fromDate;
+    $('#toDate').val(CombinedfromDate);
+    
+
+
+
+    $(document).ready(function(){
+        $("#btngo").click(function() {          
+                    
+           filter_function();      
+           
+         
+             });         
+    });
+
+
+    $(document).ready(function () {
+        $("#btncancel").click(function () {
+
+            Unfilter_function();
+
+
+        });
+    });
+    
+    function filter_function(){
+
+        var EmployeeFlag = 0;
+        var EmployeeNameFlag = 0;
+        var Employee = $('#employee').val().toLowerCase().trim();  // document.getElementById("employee").Value;
+        var EmployeeName = $('#employer').val().toLowerCase().trim();
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        var DateFlag = 0;
+
+       
+     
+
+        if (new Date(fromDate) >= new Date(toDate)) {
+            alert("Please provide the correct dates");
+            return false;     
+        }
+
+        showAll();
+
+        $('table tbody tr').hide();
+        $('div#PaginationTab').hide();
+
+       
+
+        $('table tr').each(function () {
+           // alert(new Date($(this).find('td.RequestDate').text()))
+            //alert(new Date($(this).find('td.ResponseDueDate').text()))
+            
+            //alert($(this).find('td.Employer').text())
+            //alert($(this).find('td.SSN').text())
+            //alert($(this).find('td.Name').text());
+          
+           
+
+            if (Employee == "") {
+                EmployeeFlag = 0;
+            }
+            else if (($(this).find('td.SSN').text().indexOf(Employee) > -1) || ($(this).find('td.Name').text().toLowerCase().indexOf(Employee) > -1) || ($(this).find('td.ClaimNumber').text().indexOf(Employee) > -1)) {
+                EmployeeFlag = 1;
+               // alert("EmployeeFlag")
+               
+            }
+            else {
+                EmployeeFlag = 0;
+            }
+
+            if(EmployeeName == "")
+            {
+                EmployeeNameFlag = 0;
+            }
+            else if ($(this).find('td.Employer').text().toLowerCase().indexOf(EmployeeName) > -1) {
+ 
+                EmployeeNameFlag = 1;       
+              
+            }
+            else
+            {
+                EmployeeNameFlag = 0;
+            }   
+            
+            if ((new Date($(this).find('td.RequestDate').text()) >= new Date(fromDate)) && (new Date($(this).find('td.ResponseDueDate').text()) <=  new Date(toDate))) {
+
+                DateFlag = 1;  
+            }
+            else{
+                DateFlag = 0;
+            }
+
+            
+            if(EmployeeFlag)
+            {
+
+                if(EmployeeNameFlag)
+                {
+                  
+                   if(DateFlag){
+                        $(this).show();
+                        $('div#PaginationTab').show();
+                        
+                   }
+                }
+                else if(DateFlag)
+                {  
+                    $(this).show();
+                    $('div#PaginationTab').show();
+                }
+            }
+            else if(EmployeeNameFlag)
+            {
+                if(DateFlag){
+                    $(this).show();
+                    $('div#PaginationTab').show();
+                }
+            }
+            else{
+
+              //  alert(EmployeeFlag);
+               // alert(EmployeeNameFlag);
+               if((EmployeeFlag == 0) && (EmployeeNameFlag == 0) && (Employee == "") && (EmployeeName == "")){
+
+                if(DateFlag)
+                {
+                   //alert("d");
+                  
+                    $(this).show();
+                        $('div#PaginationTab').show();
+                        EmployeeFlag = EmployeeNameFlag = 0;
+
+                }
+               }
+                
+            }   
+        });
+
+    }
+
+    function Unfilter_function(){
+
+
+           //calculation of the first and the last day of the current week
+    var dt = new Date()  
+    var currentWeekDay = dt.getDay();
+    var lessDays = currentWeekDay == 0 ? 6 : currentWeekDay - 1
+    var wkStart = new Date(new Date(dt).setDate(dt.getDate() - lessDays));
+    var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+    
+    
+
+    //calculation of the todate and binding
+    var todateRange = new Date(wkStart);
+    var toDate = todateRange.getDate().toString();
+    
+    if(toDate.length == 1){
+        toDate = "0"+toDate;
+    }
+    var toMonth = (todateRange.getMonth() + 1).toString();
+    if(toMonth.length == 1){
+        toMonth = "0" + toMonth
+
+    }
+    var toYear = todateRange.getFullYear();
+    var CombinedtoDate = toYear + "-" + toMonth + "-" + toDate;
+    $('#fromDate').val(CombinedtoDate);
+
+   
+
+    //Calculation of the fromDate
+    var fromdateRange = new Date(wkEnd);
+    var fromDate = fromdateRange.getDate().toString();
+    if(fromDate.length == 1)
+    {
+        fromDate = "0"+fromDate;
+    }
+    var fromMonth = (fromdateRange.getMonth() + 1).toString();
+    if (fromMonth.length == 1) {
+        fromMonth = "0" + fromMonth
+
+    }
+    var fromYear = fromdateRange.getFullYear();
+    var CombinedfromDate = fromYear + "-" + fromMonth + "-" + fromDate;
+    $('#toDate').val(CombinedfromDate);
+
+
+        $("#employee").val("");
+        $("#employer").val("");
+        showAll();
+
+    }
+
+    $(document).ready(function () {  
+
+      
+        $("#myTable").on('click', '.btnSelect', function () {
+           
+            var currentRow = $(this).closest("tr");
+
+            var col1 = currentRow.find(".btnSelect").val(); // get current row 1st TD value
+            
+
+           
+            if (col1 != null) {
+
+                window.location = "https://localhost:44389/ui_sides/sidesresponse/sidesresponsev/" + col1;
+               
+            }
+        });
+    });
+    function showAll(){
+
+          var $rows = $('table tbody tr');
+            $rows.show();
+           
+                      }
+</script>
+
+
+
+
+       
+

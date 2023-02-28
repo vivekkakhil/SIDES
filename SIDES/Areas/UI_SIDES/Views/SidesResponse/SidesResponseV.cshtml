@@ -1,0 +1,218 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@using SIDES.Enums
+@model SIDES.ViewModels.SidesResponseModel
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+        integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <link rel="stylesheet" href="~/CSS/SidesResponseNew.css" >
+ 
+      
+</head>
+
+<body>
+
+   <form  method="post"   asp-controller="SidesResponse" asp-action="SidesResponseV"  >
+     <section>
+
+        <div class="container"  style="font-size:14px;">
+            <div class="header">
+                <div class="text-center">
+                    Response for SSN: <label id="ssn">@Model.SSN</label>
+                    Claim Number: <label id="claimno">@Model.ClaimNumber</label>
+                    Name <label id="name">@Model.ClaimantLastName</label>
+                    Effective Date : <label id="date">@Model.ClaimEffectiveDate</label>
+                  
+                </div>
+                <div style="display:none">
+                      <input type="text" id="RouteId"  value="@Model.RequestForSeparationId"/>
+                </div>
+                <h3 class="text-center claim_heading">Claimant Information</h3>
+            </div>
+            <div class="row">
+                <div class=" col-md-6">
+                    <div class="row hide_data">
+                        <h6 class="main_ctn">Requesting State</h6>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p> State:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p><label id="state">@Model.RequestingStateAbbreviation</label></p>
+                        </div>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>Agency:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p>[iblAgency]</p>
+                        </div>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>Phone:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p>[iblPhone]</p>
+                        </div>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>Fax:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p>[iblFax]</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -------------------------------------------------------------------------------------------
+    --------------------------------------------------------- -->
+
+                <div class=" col-md-6">
+                    <div class="row">
+                        <h6 class="main_ctn">Claimant Provided info</h6>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>SSN:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p><label id="ssn">@Model.SSN</label></p>
+                        </div>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>Name:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p><label id="name">@Model.ClaimantLastName</label></p>
+                        </div>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>Other Last Name Used:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p><label id="name">@Model.ClaimantOtherLastName</label></p>
+                        </div>
+                    </div>
+                    <div class="row hide_data">
+                        <div class="col-md-6 ">
+                            <p>State Claim Number:</p>
+                        </div>
+                        <div class="col-md-6 ">
+                            <p>[iblStateClaimNo]</p>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+            <hr>
+
+                <div class="Message-main mt-3">
+                <p>[ilbMessage]</p>
+            </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h6 class=" main_ctn">Employer information</h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <h6 class="main_ctn">Employer information(if different)</h6>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <label  >Employer Name:<label  id="EmpName">@Model.EmployerName</label></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text"    class="form-control"  name="DiffEmpname"  maxlength="100" onkeypress="return onlyAlphabets(event,this);" value="@Model.CorrectedEmployerName" placeholder="only alphabet are allowed"  />         
+                        <span  class="text-danger"></span>
+                       
+
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <label asp-for="CorrectedStateEmployerAccountNbr" >SEIN:[iblStidentificationNo]</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"  name="DiffAcctnbr" value="@Model.CorrectedStateEmployerAccountNbr"
+                          onkeypress="return onlyNumberKey(event)" maxlength="9" placeholder="only enter numeric values"   />
+                        <span   class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <label for="claimantSSN">FEIN:<label id="FEIN">@Model.FEIN</label></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input  type="text"  class="form-control"  name="DiffFEIN"   value="@Model.CorrectedFEIN"
+                         onkeypress="return onlyNumberKey(event)" placeholder="only enter numeric values"
+                   maxlength="9" /> 
+                       <span    class="text-danger" ></span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                <div class=" col-sm-6 d-flex" id="Gotopage">  
+               <label id="Gotopage" class="mx-2">Go To Page</label>
+               <select  name="Go to page" id="GotopageNext"  asp-items="Html.GetEnumSelectList<GoToNextPageEnum>()" onchange="GoToNextPageDDL()"  >
+                   <option value="" >--Select--</option>
+                  </select>
+                 @* <option value="0">Request</option>
+                  <option value="1">Claimant and employer identification</option>
+                    <option  value="2">Claimant Information</option>
+                    <option value="3">Reason for Separation</option>
+                    <option value="4">Claimant Remuneration</option>
+                    <option value="5">Claimant Discharge Details</option>
+                    <option value="6">Prior Incident</option>
+                    <option value="7">Voluntary Quit</option>
+                    <option value="8">Attachments</option>
+                    <option value="9">Preparer</option>*@
+               @* }  *@      
+              
+               
+                </div>
+                 <div class=" col-sm-6">
+                <input type="button" name="Cancel" value="Cancel" class="save_btn mt-2" onclick="CancelClick()">
+                <input type="submit" name="Save" value="Save" class="save_btn mt-2" >
+                <input type="submit" name="Next" value="Next" class="save_btn mt-2" >
+               
+             </div>
+
+                </div>
+              
+
+
+        </div>  
+
+  
+    </section>
+   </form>
+    </body>
+   
+
+ </html>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>     
+   <script src="~/js/GoToNextPage.js"> </Script> 
+   <script src="~/js/FormValidation.js"></Script>
+   
+     

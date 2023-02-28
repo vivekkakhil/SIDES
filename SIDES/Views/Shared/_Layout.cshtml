@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] SIDES</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/helvetica-2" rel="stylesheet" />
+   @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/css/EVAdvantage.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="top_header"></div>
+    <section>
+        <div class="row m-0 head_box">
+            <div class="col-md-6 col-sm-6">
+                <img src="~/Images/EVABLACKLOGO.png">
+            </div>
+            <div class="col-md-6 col-sm-6 my-5 user_name">
+                <div class="admin">
+                    <span style="font-size: 18px; color: #000; font-weight: 700">
+                        Welcome :
+                    </span>
+                    <span style="font-size: 18px; color: #808080 !important;">admin</span>
+                    <a class="log_btn" href="https://localhost:44323/Login.aspx" onclick="preventBack()">
+                        Log
+                        Out
+                    </a>
+                    <script type="text/javascript">
+                        function preventBack() {
+                            document.cookie = "Sides=Logout; path=/";
+                            window.history.forward(); }
+                     //   setTimeout("preventBack()", 0);
+                     //   window.onunload = function () { null };
+                        //window.onunload = function () { null };
+                        
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ------------------------------------------------------------------------header_section_end---------------------------------------------------------------- -->
+
+
+    <section>
+        <div class="row" style="margin:20px;">
+            <div class="col-md-2" style="padding: 0px !important; margin-top: 50px;">
+                <nav class="navbar nav_side navbar-expand-lg navbar-light">
+                    <ul class="navbar-nav m-auto  mt-2 mt-lg-0">
+                        <li class="active">
+                            
+                            <a href="https://localhost:44323/adminHome.aspx">Activation</a>
+                        </li>
+
+                        <li class="active">
+                         
+                            <a href="https://localhost:44323/company.aspx">Company</a>
+                           
+                        </li>
+
+                        <li class="active dropdown">
+
+                            <a data-toggle="dropdown" class="dropdown-toggle" role="button" aria-haspopup="true"
+                               aria-expanded="false" href="javascript:__doPostBack('ctl00$lnkManage','')">
+                                Manage
+                                Accounts
+                            </a>
+                            <div class="dropdown-menu" id="mdiv" style="margin-top: 3px !important;">
+                                <div class="drop_menu_int active">
+                                    <a href="https://localhost:44323/employee.aspx">Employee</a>
+                                </div>
+                                <div class="drop_menu_int active">
+                                    <a id="ctl00_lnkVerifier" href="https://localhost:44323/verifier.aspx">Verifier</a>
+                                </div>
+                                <div class="drop_menu_int active">
+                                    <a href="https://localhost:44323/user.aspx">Admin/Moderator</a>
+                                </div>
+                                <div class="drop_menu_int active" style="border: none !important">
+                                    <a href="https://localhost:44323/socialServices.aspx">
+                                        Social
+                                        Service User
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li class="active">
+                            <a href="https://localhost:44323/changePrice.aspx">Change Price</a>
+                        </li>
+                        <li class="active">
+                            <a href="https://localhost:44323/dataUpload.aspx">Upload Status</a>
+                        </li>
+                        <li class="active">
+                            <a href="https://localhost:44323/changePwd.aspx">Change Pwd</a>
+                        </li>
+                        <li class="active">
+                            <a href="https://localhost:44323/verification.aspx">Verification</a>
+                        </li>
+                        <li class="active">
+                            <a href="https://localhost:44323/report.aspx">Reports</a>
+                        </li>
+                        <li class="active">
+                            <a href="https://localhost:44323/Exception.aspx">Exceptions</a>
+                        </li>
+
+                        <li class="active" style="border: none !important">
+                            <a href="#">SIDES</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-md-10" style="margin-top:50px;">
+                <div class="data_box" style="height: auto;">
+                   @* <div class="container">*@
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    @*</div>*@
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ------------------------------------------------------------------------header_section_end---------------------------------------------------------------- -->
+
+    <footer class="footer-section" style="margin-top:50px;">
+
+        <div class="footer_logo">
+            <img src="~/Images/EVAWHITELOGO 111.png">
+        </div>
+        <div class="main_footer">
+            <ul class="list-inline">
+                <li><a href="#">Terms of Use |</a></li>
+                <li><a href="#">Privacy Statement |</a></li>
+                <li><a href="#">Return Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-inner" style="margin-top:50px;">
+            © Copyright 2015 by EV Advantage
+        </div>
+      
+
+
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

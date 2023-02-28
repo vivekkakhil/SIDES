@@ -1,0 +1,183 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using SIDES.Enums 
+@model SIDES.ViewModels.ClaimantInformation
+
+
+<link href="~/CSS/ClaimantInformation.css" rel="stylesheet" />
+
+<div class="text-center">
+    Response for SSN:@Model.SidesRequest.SSN  Claim Number: @Model.SidesRequest.ClaimNumber @Model.SidesRequest.ClaimantLastName @Model.SidesRequest.ClaimantFirstName Effective Date:
+         @Model.SidesRequest.ClaimEffectiveDate</div>
+    <div style="display:none">
+        <input type="text" id="RouteId" value="@Model.SidesRequest.RequestForSeparationId" />
+    </div>
+        <h3 class="text-center claim_heading">Claimant and Employer Information</h3>
+    <form class="form_1" asp-controller="SidesClaimantInformation" asp-action="SidesClaimantInformationV" method="post">
+        <div class="form-group row" style="Display:None">
+            <label for="RequestforSeparationId" class="col-sm-3 col-form-label">Refquset for SeparationId</label>
+            <div class="col-sm-9 input_end">
+                <input type="text" class="form-control" id="RequestId" name="RequestId" value="@Model.RequestForSeparationId" readonly>
+            </div>
+        </div>
+            <div class="form-group row">
+                <label for="claimantSSN" class="col-sm-3 col-form-label">Claimant Other SSN</label>
+                <div class="col-sm-9 input_end">
+                <input type="number" class="form-control" id="claimantSSN" name="OtherSSN" value="@Model.OtherSSN" maxlength="9" min="0"  onkeypress="return onlyNumberKey(event)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="claimantInitial" class="col-sm-3 col-form-label">Claimant Middle Initial</label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="claimantInitial" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="claimantName" class="col-sm-3 col-form-label">Claimant Name (if worked under a different
+                    name)</label>
+                <div class="col-sm-9 input_end">
+                <input type="text" class="form-control" name="ClaimantNameWorkedAsForEmployer" onkeypress="return onlyAlphabets(event,this);" id="claimantName" value="@Model.ClaimantNameWorkedAsForEmployer">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="claimantSuffix" class="col-sm-3 col-form-label">Claimant Suffix</label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="claimantSuffix" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="jobTitle" class="col-sm-3 col-form-label">Job Title</label>
+                <div class="col-sm-9 input_end">
+                <input type="text" class="form-control" name="ClaimantJobTitle" onkeypress="return onlyAlphabets(event,this);" id="jobTitle" value="@Model.ClaimantJobTitle">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="employment" class="col-sm-3 col-form-label">Was this seasonal employment?</label>
+                <div class="col-sm-9 input_end">
+            <select name="SeasonalEmploymentInd" id="employment" class="form-control">
+                        @{
+                            if(Model.SeasonalEmploymentInd == "Y"){
+                            <option selected value="Y">Yes</option>
+                            <option value="N">No</option>
+                            }
+                            else if(Model.SeasonalEmploymentInd == "N")
+                            {
+                            <option  value="Y">Yes</option>
+                            <option selected value="N">No</option>
+                            }
+                            else{
+                            <option selected value="Y">Yes</option>
+                            <option value="N">No</option>
+
+                            }
+                        }
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="firstDay" class="col-sm-3 col-form-label">*Employer reported claimant first day of
+                    work</label>
+                <div class="col-sm-9 input_end">
+            <input type="date" class="form-control" id="firstDay" name="EmployerReportedClaimantFirstDayofWork" value="@ViewBag.ClaimEF">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="lastDay" class="col-sm-3 col-form-label">Employer reported claimant last day of work</label>
+                <div class="col-sm-9 input_end">
+            <input type="date" class="form-control" name="EmployerReportedClaimantLastDayofWork" id="lastDay" value="@ViewBag.ClaimLD">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sepDate" class="col-sm-3 col-form-label">Effective separation date</label>
+                <div class="col-sm-9 input_end">
+              
+                              <input type="date" class="form-control" name="EffectiveSeparationDate" id="sepDate" value="@ViewBag.ClaimESD">
+                  
+               
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="earnedWagesAailable" class="col-sm-3 col-form-label">Are Total Earned Wages Available for
+                    the dates requested?</label>
+                <div class="col-sm-9 input_end">
+            <select id="earnedWagesAailable" name="earnedWagesAailable"  asp-items="@Model.WasgesAvailability" class="form-control">
+                        
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="earnedWages" class="col-sm-3 col-form-label">Total Wages Earned</label>
+                <div class="col-sm-9 input_end">
+                <input type="text" class="form-control" id="earnedWages" name="earnedWages" value="@Model.TotalEarnedWages" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="weekWorkedAailable" class="col-sm-3 col-form-label">Are Total weeks worked
+                    available?</label>
+                <div class="col-sm-9 input_end">
+            <select id="weekWorkedAailable" asp-items="@Model.WeeksAvailable" name="TotalWeeksWorkedNeededInd"  class="form-control">
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="weeksWorked" class="col-sm-3 col-form-label">Total weeks worked</label>
+                <div class="col-sm-9 input_end">
+            <input type="text" class="form-control" id="weeksWorked" name="weeksWorked" value="@Model.TotalWeeksWorked" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="wagesEarnedLast" class="col-sm-3 col-form-label">Total wages earned by the claimant after
+                    the effective date of the claim</label>
+                <div class="col-sm-9 input_end">
+            <input type="number" class="form-control" id="wagesEarnedLast" value="@Model.WagesEarnedAfterClaimEffectiveDate" name="wagesEarnedLast">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="hoursWorkedLast" class="col-sm-3 col-form-label">No. of hours worked after claim effective
+                    date</label>
+                <div class="col-sm-9 input_end">
+            <input type="number" class="form-control" id="hoursWorkedLast" value="@Model.NumberOfHoursWorkedAfterClaimEffectiveDate" name="hoursWorkedLast">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="AverageWeeklyWages" class="col-sm-3 col-form-label">Average weekly wage</label>
+                <div class="col-sm-9 input_end">
+            <input type="number" class="form-control" id="AverageWeeklyWages" value="@Model.AverageWeeklyWage" name="AverageWeeklyWages">
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+            <div class=" col-sm-6 d-flex" id="Gotopage">
+                <label id="Gotopage" class="mx-2">Go To Page</label>
+            <select name="Go to page" id="GotopageNext" asp-items="Html.GetEnumSelectList<GoToNextPageEnum>()" onchange="GoToNextPageDDL()">
+                <option value="">--Select--</option>
+            </select>
+
+            </div>
+            <div class=" col-sm-6">
+                <input type="button" name="Cancel" value="Cancel" class="save_btn mt-2" onclick="CancelClick()">
+                <input type="submit" name="Save" value="Save" class="save_btn mt-2" >
+                <input type="submit" name="Next" value="Next" class="save_btn mt-2" >
+               
+             </div>
+
+        </div>
+     </form>
+        
+      
+   @* @if(ViewData["AlertMessage"] != null){
+
+        <script type="text/javascript">
+            window.onload = function() {
+                alert("@ViewData["AlertMessage"]");
+            };
+            </script>
+
+    }*@
+    <script src="~/js/GoToNextPage.js"> </Script> 
+   <script src="~/js/FormValidation.js"></Script>

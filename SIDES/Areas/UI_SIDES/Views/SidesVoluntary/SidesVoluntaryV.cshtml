@@ -1,0 +1,223 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SIDES.ViewModels.Voluntary
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="~/css/Voluntary.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+          integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <style>
+     .form-control {
+    display: block;
+    width: 100%;
+    height: 30px !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+lable {
+    font-size: 18px;
+}
+.form_1 .input_end {
+    display: flex;
+    justify-content:center !important;
+}
+
+ </style>
+
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="text-center">
+            Response for SSN: @Model.sidesRequest.SSN Claim Number: @Model.sidesRequest.ClaimNumber Name @Model.sidesRequest.ClaimantLastName @Model.sidesRequest.ClaimantLastName Effective Date :
+            @Model.sidesRequest.ClaimEffectiveDate
+        </div>
+        <div style="display:none">
+            <input type="text" id="RouteId" value="@Model.sidesRequest.RequestForSeparationId" />
+        </div>
+        <h3 class="text-center claim_heading">Voluntary Quit Details</h3>
+        <form class="form_1" method="post">
+            <div class="form-group row">
+                <label for="claimantSeparation" class="col-sm-3 col-form-label">
+                    What reason did the claimant give for
+                    voluntarily leaving employment?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <select id="claimantSeparation" name="SIDES_VOLUNTARYSEPARATION" asp-items="@Model.SIDES_VOLUNTARYSEPARATION" class="form-control">
+                       
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="returnWork" class="col-sm-3 col-form-label">
+                    Were there changes in the claimant's hiring
+                    agreement?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <select id="HiringAgreementChanges" class="form-control" name="HiringAgreementChangesCode" asp-items="@Model.SIDES_HIRINGAGREEMENTCHANGES">
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="returnDate" class="col-sm-3 col-form-label">
+                    What Were there changes in the claimant's hiring
+                    agreement?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="changesInHiringAgreement" name="HiringAgreementChangesComments" value="@Model.HiringAgreementChangesComments">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="availableHours" class="col-sm-3 col-form-label">
+                    Did the claimant take actions to avoid
+                    quitting?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <select id="ClaimantTookActionstoAvoidQuit" class="form-control" name="ClaimantActionstoAvoidQuitInd">
+                        @{
+                            if(Model.ClaimantActionstoAvoidQuitInd == "Y")
+                            {
+                                        <option value="Y" selected>Yes</option>
+                                        <option value="N">No</option>
+                            }
+                            else if (Model.ClaimantActionstoAvoidQuitInd == "N"){
+                                        <option value="Y" >Yes</option>
+                                        <option value="N" selected>No</option>
+
+                            }
+                            else{
+
+                                        <option value="Y" selected>Yes</option>
+                                        <option value="N">No</option>
+                            }
+                        }
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="notClaim" class="col-sm-3 col-form-label">
+                    What actions did the claimant take to avoid
+                    quitting?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <textarea rows="4" cols="50" name="ActionTakenComments" id="ClaimantActionsDescriptiontoAvoidQuit">@Model.ActionTakenComments</textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="typeOfLabour" class="col-sm-3 col-form-label">Was continuing work available?</label>
+                <div class="col-sm-9 input_end">
+                    <select id="typeOfLabour" class="form-control" name="ContinuingWorkAvailableInd">
+                       @{
+                            if (Model.ContinuingWorkAvailableInd =="Y"){
+                                        <option value="Y" selected>Yes</option>
+                                        <option value="N">No</option>
+                            }
+                            else if(Model.ContinuingWorkAvailableInd == "N"){
+                                        <option value="Y">Yes</option>
+                                        <option value="N" selected>No</option>
+
+                            }
+                            else{
+                                        <option value="Y" selected>Yes</option>
+                                        <option value="N">No</option>
+
+                            }
+                       }
+                      
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="earnedWages" class="col-sm-3 col-form-label">
+                    Explain the reason the claimant gave for
+                    quitting even through continuing work was available
+                </label>
+                <div class="col-sm-9 input_end">
+                    <textarea rows="4" cols="50" name="NotWorkingAvailableHoursReason" id="notClaim">@Model.NotWorkingAvailableHoursReason</textarea>
+                </div>
+            </div>
+              <div class="row mt-3">
+                <div class=" col-sm-6 d-flex" id="Gotopage">
+                    <label id="Gotopage" class="mx-2">Go To Page</label>
+                    <select name="Go to page" id="GotopageNext" onchange="GoToNextPageDDL()">
+                        <option value="0">Request</option>
+                        <option value="1">Claimant and employer identification</option>
+                        <option value="2">Claimant Information</option>
+                        <option value="3">Reason for Separation</option>
+                        <option value="4">Claimant Remuneration</option>
+                        <option value="5">Claimant Discharge Details</option>
+                        <option value="6">Prior Incident</option>
+                        <option value="7">Voluntary Quit</option>
+                        <option value="8">Attachments</option>
+                        <option value="9">Preparer</option>
+                        }
+                    </select>
+
+                </div>
+                 <div class=" col-sm-6">
+                <input type="button" name="Cancel" value="Cancel" class="save_btn mt-2" onclick="CancelClick()">
+                <input type="submit" name="Save" value="Save" class="save_btn mt-2" >
+                <input type="submit" name="Next" value="Next" class="save_btn mt-2" >
+               
+             </div>
+
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="~/js/GoToNextPage.js"> </Script>   
+    <script>
+     $(document).ready(function(){
+         $("#HiringAgreementChanges").change(function () {
+            if ($(this).val() == "1") {
+               
+                $("#changesInHiringAgreement").attr("disabled",true);
+              
+            } else {
+                 $("#changesInHiringAgreement").attr("disabled",false);
+            }
+        });
+
+        $("#ClaimantTookActionstoAvoidQuit").change(function () {
+            if ($(this).val() == "N") {
+               
+                $("#ClaimantActionsDescriptiontoAvoidQuit").attr("disabled",true);
+              
+            } else {
+                 $("#ClaimantActionsDescriptiontoAvoidQuit").attr("disabled",false);
+            }
+        });
+     });
+</script>

@@ -1,0 +1,370 @@
+﻿body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+}
+
+.search_btn button {
+    border: 1px solid #c7c7c7;
+    background-color: transparent !important;
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #9bc346;
+    border-radius: 5px;
+    width: 45% !important;
+    text-align: left;
+}
+
+    .search_btn button i {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #9bc346;
+    }
+
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus,
+.btn:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: 0 0 0 0.2rem rgba(131, 131, 131, 0.25);
+    color: #85b128;
+}
+
+.search_box label {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    width: 8%;
+}
+
+.search_title {
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    color: #9bc346;
+}
+
+.or_text {
+    margin-left: 108px;
+}
+
+.search_input {
+    margin-left: 30px;
+    width: 30%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    color: #575756;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+
+
+
+.date_input {
+    margin-left: 25px;
+    width: 14%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 10px !important;
+    color: #575756;
+    border-radius: 10px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.search_input::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.checkbox input[type=checkbox] {
+    position: absolute;
+    margin-top: unset !important;
+    margin-left: unset !important;
+}
+
+
+.date_input:hover,
+.date_input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+.search_input:hover,
+.search_input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+.btn_box input[type="button"],
+.btn_box input[type="submit"] {
+    margin-top: 10px;
+    border: 1px solid #9bc346;
+    border-radius: 5px;
+    min-width: 150px;
+    padding: 12px;
+    background-color: #9bc346;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    width: 10%;
+    margin-left: 120px;
+}
+
+    .btn_box input[type="button"]:hover,
+    .btn_box input[type="submit"]:hover {
+        border: 1px solid #9bc346;
+        background-color: #fff;
+        color: #9bc346;
+    }
+
+table thead tr {
+    background-color: #99c23c;
+    color: #ffffff;
+}
+
+input[type="button"],
+input[type="submit"] {
+    border: 1px solid #9bc346;
+    border-radius: 5px;
+    min-width: 80px;
+    padding: 5px;
+    background-color: white;
+    cursor: hand;
+    font-size: 16px;
+    color: #9bc346;
+}
+
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+        border: 1px solid #9bc346;
+        background-color: #9bc346;
+        color: #fff;
+    }
+
+input[type="checkbox"] {
+    accent-color: #202020;
+}
+
+tr:nth-child(even) {
+    background-color: #f4ffda;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+    table caption {
+        font-size: 18px;
+        margin: 0.5em 0 0.75em;
+    }
+
+    table tr {
+        border-bottom: 1px solid #ccdab0;
+        padding: 0.35em;
+    }
+
+    table th,
+    table td {
+        padding: 0.625em;
+        font-size: 14px;
+    }
+
+    table th {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+@media screen and (max-width: 1120px) {
+    .navbar-nav > li {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 947px) {
+    .search_btn button {
+        width: 80% !important;
+    }
+
+    .navbar-nav > li {
+        font-size: 10px !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-nav > li {
+        font-size: 16px !important;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .collapse_div {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .search_box {
+        flex-direction: column;
+    }
+
+        .search_box label {
+            width: unset !important;
+        }
+
+    .or_text {
+        margin-left: 0px;
+    }
+
+    .checkbox input[type=checkbox] {
+        margin-top: 10px !important;
+    }
+
+    .btn_box {
+        flex-direction: column;
+        width: 20%;
+        margin: auto;
+    }
+
+    .search_box label {
+        font-size: 18px;
+        display: block;
+        text-align: center;
+    }
+
+    .search_input {
+        margin-left: 0px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .date_input {
+        margin-left: 0px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .btn_box1 {
+        left: unset !important;
+    }
+
+        .btn_box1 .btngoClick {
+            width: 25% !important;
+        }
+
+    .btn_box input[type="button"],
+    .btn_box input[type="submit"] {
+        margin-left: 0px;
+        min-width: 100%;
+    }
+
+    table {
+        border: 0;
+    }
+
+    label {
+        display: none;
+    }
+
+    table caption {
+        font-size: 14px;
+    }
+
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: 0.625em;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 14px;
+        text-align: right;
+    }
+
+        table td::before {
+            /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+    #table {
+        text-align: left;
+    }
+
+        #table td {
+            display: inline;
+            border: none;
+            line-height: 30px;
+        }
+
+            #table td:before {
+                content: attr(data-label);
+                display: none;
+            }
+}
+
+.btn_box1 {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    position: relative;
+    left: 5.1%;
+}
+
+    .btn_box1 .btngoClick {
+        padding: 10px 0px !important;
+        width: 14%;
+        border-radius: 10px !important;
+    }

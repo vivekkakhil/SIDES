@@ -1,0 +1,199 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model SIDES.ViewModels.Attachments
+@using SIDES.Enums
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="~/css/Attachments.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+          integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+            <style>
+     .form-control {
+    display: block;
+    width: 100%;
+    height: 30px !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+     }
+
+   input[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus {
+    outline: none !important;
+    outline-offset: 0 !important;
+}
+}
+
+lable {
+    font-size: 18px;
+}
+.form_1 .input_end {
+    display: flex;
+    justify-content:center !important;
+}
+
+ </style>
+
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="text-center">
+            Response for SSN: @Model.SidesRequest.SSN Claim Number: @Model.SidesRequest.ClaimNumber Name @Model.SidesRequest.ClaimantLastName @Model.SidesRequest.ClaimantFirstName Effective Date :
+            @Model.SidesRequest.ClaimEffectiveDate
+        </div>
+        <div style="display:none">
+            <input type="text" id="RouteId" value="@Model.SidesRequest.RequestForSeparationId" />
+        </div>
+        <h3 class="text-center claim_heading">Attachments</h3>
+        <form  enctype="multipart/form-data" class="form_1"  asp-controller="SidesAttachments" asp-action="SidesAttachmentsV" >
+            <div class="form-group row">
+                <label  asp-for="AttachmentUpload" for="formatAttachment" class="col-sm-3 col-form-label">
+                    Attachment data
+                </label>
+                <div class="col-sm-9 input_end">
+                     <input  class="form-control uploadedAttachments"  asp-for="AttachmentUpload"  name="AttachmentUpload" value="@Model.AttachmentUpload" >
+                   @* <div class=""> 
+                        <input  asp-for="AttachmentUpload" class="form-control custom-file-input" id="documentAttached" name="AttachmentUpload">
+                        <label class="custom-file-label col-sm-7">Select...</label>
+                        <input  asp-for="AttachmentUpload" type="file"/>
+                        <label class="custom-file-label">Select...</label>
+
+                     </div>*@
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="formatAttachment" class="col-sm-3 col-form-label">
+                    What is the format of the attachment?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <select id="SIDESATTACHMENTCODE" class="form-control" asp-items="@Model.SIDES_ATTACHMENTCODE" name="SIDES_ATTACHMENTCODE">
+                       
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="documentAttached" class="col-sm-3 col-form-label">
+                    What type of document is attached?
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="TypeofDocument"  name="TypeofDocument" value="@Model.TypeofDocument" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="uniqueAttachment" class="col-sm-3 col-form-label">
+                    Unique attachment id
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control" id="uniqueAttachment" name="UniqueAttachmentID" value="@Model.UniqueAttachmentID" readonly>
+                </div>
+                
+                <div class="container d-flex justify-content-center btn_del">
+                    <div class="">
+                        <input type="submit" name="view" value="view" class="save_btn">
+                        <input type="submit" name="delete" value="delete" class="save_btn">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="attachmentSize" class="col-sm-3 col-form-label">
+                    Attachment size
+                </label>
+                <div class="col-sm-9 input_end">
+                    <input type="text" class="form-control attachmentSize" id="" name="AttachmentSize" value="@Model.AttachmentSize" readonly>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class=" col-sm-6 d-flex" id="Gotopage">
+                    <label id="Gotopage" class="mx-2">Go To Page</label>
+                     <select  name="Go to page" id="GotopageNext"  asp-items="Html.GetEnumSelectList<GoToNextPageEnum>()" onchange="GoToNextPageDDL()"  >
+                   <option value="" >--Select--</option>
+                  </select>
+
+                </div>
+                 <div class=" col-sm-6">
+                <input type="button" name="Cancel" value="Cancel" class="save_btn mt-2" onclick="CancelClick()">
+                <input type="submit" name="Save" value="Save" class="save_btn mt-2" >
+                <input type="submit" name="Next" value="Next" class="save_btn mt-2" >
+               
+             </div>
+
+            </div>
+          
+        </form>
+    </div>
+      @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
+<script src="~/js/GoToNextPage.js"> </Script> 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="~/js/GoToNextPage.js"> </Script> 
+<script>
+     $(".uploadedAttachments").change(function () {
+       var fileExtension = ['rtf', 'pdf', 'csv', 'txt', 'tiff'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            alert("Only formats are allowed : "+fileExtension.join(', '));
+              $(this).val("");
+        }
+        else{
+             
+            
+            if ($(this)[0].files[0].size > 2097152) {
+                    alert("Try to upload file less than 2MB!");
+                } else {
+
+                    var filename = $(this).val().split("\\").pop();
+                   var ext =  $(this).val().split('.').pop().toUpperCase();
+                    
+                    var selectedvalue  ;
+                     $("#SIDESATTACHMENTCODE > option").each(function() {
+                           if(this.text == ext ){
+
+                             selectedvalue = this.value;
+                           }
+                      });
+
+                    $("#SIDESATTACHMENTCODE").val(selectedvalue);
+                    $("#TypeofDocument").val(filename);
+                    $('.attachmentSize').val($(this)[0].files[0].size);
+                }
+
+             
+        }
+    });
+</script>

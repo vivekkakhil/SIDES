@@ -1,0 +1,316 @@
+﻿body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+}
+
+.search_btn button {
+    border: 1px solid #c7c7c7;
+    background-color: transparent !important;
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #9bc346;
+    border-radius: 5px;
+}
+
+    .search_btn button i {
+        margin-left: 120px;
+        color: #9bc346;
+    }
+
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus,
+.btn:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: 0 0 0 0.2rem rgba(131, 131, 131, 0.25);
+    color: #85b128;
+}
+
+.search_box label {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.search_title {
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    color: #9bc346;
+}
+
+.or_text {
+    margin-left: 108px;
+}
+
+.search_input {
+    margin-left: 30px;
+    width: 30%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    color: #575756;
+    background-color: transparent;
+    /*         background-image: url(http://mihaeltomic.com/codepen/input-search/ic_search_black_24px.svg); */
+
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 10px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.date_input {
+    margin-left: 19px;
+    width: 14%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 10px !important;
+    color: #575756;
+    border-radius: 10px;
+    border: 1px solid #575756;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.search_input::placeholder {
+    color: color(#575756 a(0.8));
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.date_input:hover,
+.date_input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+.search_input:hover,
+.search_input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #575756;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+.btn_box input[type="button"],
+.btn_box input[type="submit"] {
+    margin-top: 10px;
+    border: 1px solid #9bc346;
+    border-radius: 5px;
+    min-width: 150px;
+    padding: 12px;
+    background-color: #9bc346;
+    cursor: hand;
+    font-size: 16px;
+    color: #fff;
+    margin-left: 108px;
+}
+
+    .btn_box input[type="button"]:hover,
+    .btn_box input[type="submit"]:hover {
+        border: 1px solid #9bc346;
+        background-color: #fff;
+        color: #9bc346;
+    }
+
+table thead tr {
+    background-color: #99c23c;
+    color: #ffffff;
+}
+
+input[type="button"],
+input[type="submit"] {
+    border: 1px solid #9bc346;
+    border-radius: 5px;
+    min-width: 80px;
+    padding: 5px;
+    background-color: white;
+    cursor: hand;
+    font-size: 16px;
+    color: #9bc346;
+}
+
+    input[type="button"]:hover,
+    input[type="submit"]:hover {
+        border: 1px solid #9bc346;
+        background-color: #9bc346;
+        color: #fff;
+    }
+
+input[type="checkbox"] {
+    accent-color: #202020;
+}
+
+tr:nth-child(even) {
+    background-color: #f4ffda;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+    table caption {
+        font-size: 18px;
+        margin: 0.5em 0 0.75em;
+    }
+
+    table tr {
+        border-bottom: 1px solid #ccdab0;
+        padding: 0.35em;
+    }
+
+    table th,
+    table td {
+        padding: 0.625em;
+        font-size: 14px;
+    }
+
+    table th {
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+@media screen and (min-width: 1025px) {
+    .table1 {
+        display: none !important;
+    }
+
+    .table2 {
+        display: none !important;
+    }
+
+    .table3 {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .search_box {
+        flex-direction: column;
+    }
+
+    .or_text {
+        margin-left: 0px;
+    }
+
+    .btn_box {
+        flex-direction: column;
+        width: 20%;
+        margin: auto;
+    }
+
+    .search_box label {
+        font-size: 18px;
+        display: block;
+        text-align: center;
+    }
+
+    .search_input {
+        margin-left: 0px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .date_input {
+        margin-left: 0px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .btn_box input[type="button"],
+    .btn_box input[type="submit"] {
+        margin-left: 0px;
+        min-width: 100%;
+    }
+
+    table {
+        border: 0;
+    }
+
+    label {
+        display: none;
+    }
+
+    table caption {
+        font-size: 14px;
+    }
+
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: 0.625em;
+    }
+
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 14px;
+        text-align: right;
+    }
+
+        table td::before {
+            /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+    #table1 {
+        text-align: left;
+    }
+
+        #table1 td {
+            display: inline;
+            border: none;
+            line-height: 30px;
+        }
+
+            #table1 td:before {
+                content: attr(data-label);
+                display: none;
+            }
+}

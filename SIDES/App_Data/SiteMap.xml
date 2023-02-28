@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Step>
+		<No>0</No>
+		<Page>SidesRequests.aspx</Page>
+	</Step>
+	<Step>
+		<No>1</No>
+		<Page>SidesResponse.aspx</Page>
+	</Step>
+	<Step>
+		<No>2</No>
+		<Page>SidesResponse_ClaimantInformation.aspx</Page>
+	</Step>
+	<Step>
+		<No>3</No>
+		<Page>SidesResponse_ClaimantInformationWages.aspx</Page>
+	</Step>
+	<Step>
+		<No>4</No>
+		<Page>SidesResponse_Remuneration.aspx</Page>
+	</Step>
+	<Step>
+		<No>5</No>
+		<Page>SidesResponse_DischargeDetails.aspx</Page>
+	</Step>
+	<Step>
+		<No>6</No>
+		<Page>SidesResponse_PriorIncident.aspx</Page>
+	</Step>
+	<Step>
+		<No>7</No>
+		<Page>SidesResponse_IsVoluntaryQuit.aspx</Page>
+	</Step>
+	<Step>
+		<No>8</No>
+		<Page>SidesResponse_Attachments.aspx</Page>
+	</Step>
+	<Step>
+		<No>9</No>
+		<Page>SidesResponse_Preparer.aspx</Page>
+	</Step>
+</root>
