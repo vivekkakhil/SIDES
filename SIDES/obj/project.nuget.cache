@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9d0FyonuuLrBcPZgHSs/mebofU+Z1di2FvFYUvwFUqj0Xub/RcgtYrRbNp01vuk/rj1aFO32mwC/W6WJVc8T+w==",
+  "dgSpecHash": "q2QHFGv1AD6JliGbeij9XSfxIeHl2FEZ3iDBE4Vq8k6DC8cTl4sSqBAWHr9Ln7/3Ew00KpYnfVgPPLHdhxAT8Q==",
   "success": true,
-  "projectFilePath": "D:\\SIDES-02-01-2022\\SIDES\\SIDES\\SIDES\\SIDES.csproj",
+  "projectFilePath": "E:\\Backup\\Git-Sides\\SIDES\\SIDES\\SIDES.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\grid.mvc\\3.0.0\\grid.mvc.3.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
