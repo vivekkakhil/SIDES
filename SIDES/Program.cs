@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SIDES.EFCoreModels.ScafffoldEntities.Persistance;
 using SIDES.Interface;
 using SIDES.Services;
@@ -9,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("SidesDBConnection");
+//builder.Services.AddRazorPages(Options =>
+//{
+//    Options.Conventions.AddPageRoute("/UI_SIDES/SidesRequest/SidesRequestV", "");
+//});
+
 builder.Services.AddDbContextPool<UCAContext>(options =>
 {
     options.UseSqlServer(connectionString);
@@ -23,6 +29,8 @@ builder.Services.AddScoped<IFlagRequestStatus, FlagRequestStatus>();
 
 
 
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -30,10 +38,18 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseDeveloperExceptionPage();
+    //  app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    // app.UseHsts();
 }
+else
+{
+ //   app.UseExceptionHandler("/UI_SIDES/CentralizedError/{0}");
+   // app.UseHsts();
+  
+}
+app.UseStatusCodePagesWithRedirects("/CentralizedError/{0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -52,11 +68,17 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-      name: "areas",
-      pattern:"{area}/{controller}/{action}/{Id?}"
-  //  pattern: "{area = UI_SIDES}/{controller = SidesRequest }/{action = SidesRequestV}/"
+      name: "area",
+      pattern: "{area:exists}/{controller}/{action}/{Id?}"
+    // pattern: "{area = ui_sides}/{controller = sidesrequest }/{action = sidesrequestv}/{Id?}"
 
     );
+
+
+    endpoints.MapAreaControllerRoute(
+                   name: "default",
+                   areaName: "UI_SIDES",
+                   pattern: "{controller=SidesRequest}/{action=SidesRequestV}");
 });
 
 

@@ -25,6 +25,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             try
             {
                 var reasonForSeparation = GetReasonforSeparationDetails(RSID);
+
+                if (reasonForSeparation.SidesRequest.RequestForSeparationId.Equals(0))
+                {
+                    Response.StatusCode = 404;
+                    return View("ClaimNotFound", Convert.ToInt32(RSID));
+                }
+
                 return View(reasonForSeparation);
             }
             catch(Exception ex)

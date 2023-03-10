@@ -15,7 +15,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
         private ISidesTPAResponse _sidesTPAResponse;
         private UCAContext _uCAContext;
-        string requestparam;
+       
 
         public SidesResponseController(ISidesTPAResponse sidesTPAResponse, UCAContext uCAContext)
         {
@@ -25,15 +25,21 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
         [HttpGet]
         [Route("ui_sides/SidesResponse/SidesResponseV/{RSID}")]
-        public IActionResult SidesResponseV(string RSID)
+        public IActionResult SidesResponseV(int RSID)
         {
             try
             {
-                if ((RSID != "") || (RSID != null))
+                if ((RSID != 0) || (RSID > 0))
                 {
 
                     ViewBag.RouteId = RSID;
-                    _sidesTPAResponse.GetRec(Convert.ToInt32(RSID));
+                    var result = _sidesTPAResponse.GetRec(RSID);
+
+                    if (result.RequestForSeparationId.Equals(0))
+                    {
+                        Response.StatusCode = 404;
+                        return View("ClaimNotFound", Convert.ToInt32(RSID));
+                    }
 
                 }
                 else

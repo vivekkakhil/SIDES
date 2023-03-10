@@ -89,7 +89,8 @@ lable {
                     What is the format of the attachment?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <select id="SIDESATTACHMENTCODE" class="form-control" asp-items="@Model.SIDES_ATTACHMENTCODE" name="SIDES_ATTACHMENTCODE">
+                    <select  disabled id="SIDESATTACHMENTCODE" name="SIDESATTACHMENTCODE" class="form-control" asp-items="@Model.SIDES_ATTACHMENTCODE"  >
+                        <option value=""></option>
                        
                     </select>
                 </div>
@@ -164,6 +165,9 @@ lable {
 
 <script src="~/js/GoToNextPage.js"> </Script> 
 <script>
+
+   
+
      $(".uploadedAttachments").change(function () {
        var fileExtension = ['rtf', 'pdf', 'csv', 'txt', 'tiff'];
         if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {

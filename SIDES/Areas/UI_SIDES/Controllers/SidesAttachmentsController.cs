@@ -42,7 +42,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             
         }
 
-            [HttpPost]
+        [HttpPost]
         [Route("UI_SIDES/SidesAttachments/SidesAttachmentsV/{RSID}")]
         public IActionResult SidesAttachmentsV(int RSID, string Save, string Next, string view, string delete, Attachments model, IFormFile AttachmentUpload)
         {
@@ -82,6 +82,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
 
 
+
         public Attachments GetAttachmentsDetails(int RSID)
         {
 
@@ -108,6 +109,10 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     else
                         items.Add(new SelectListItem { Text = attachmentcode.AttachmentCode, Value = attachmentcode.AttachmentCodeId.ToString() });
                 }
+                else
+                {
+                   items.Add(new SelectListItem { Text = attachmentcode.AttachmentCode, Value = attachmentcode.AttachmentCodeId.ToString() });
+                }
 
             }
 
@@ -116,9 +121,9 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             if (TPAResponseAttachment != null)
             {
                 attachments.TypeofDocument = TPAResponseAttachment.TypeofDocument;
-                if (TPAResponseAttachment.UniqueAttachmentId == "")
+                if ((TPAResponseAttachment.UniqueAttachmentId == "") || (TPAResponseAttachment.UniqueAttachmentId == null))
                     attachments.UniqueAttachmentID = "01";
-                else
+               else
                     attachments.UniqueAttachmentID = TPAResponseAttachment.UniqueAttachmentId.Trim();
                 attachments.AttachmentSize = Convert.ToInt64(TPAResponseAttachment.AttachmentSize);
             }
@@ -139,10 +144,23 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
             var sidesTparesponse = _UCAContext.SidesTparesponseattachments.Where(e => e.TparesponseId == Request.TPAResponseId).FirstOrDefault();
 
-            if (sidesTparesponse != null)
+
+            if (sidesTparesponse == null)
             {
-                sidesTparesponse.TypeofDocument = HttpContext.Request.Form["TypeofDocument"].ToString();
-                sidesTparesponse.UniqueAttachmentId = HttpContext.Request.Form["UniqueAttachmentID"].ToString();
+                SidesTparesponseattachment sidesTparesponseattachment = new SidesTparesponseattachment
+                {
+                    TparesponseId = Request.TPAResponseId
+                };
+                
+
+                _UCAContext.SidesTparesponseattachments.Add(sidesTparesponseattachment);
+                _UCAContext.SaveChanges();
+
+
+                sidesTparesponseattachment.TypeofDocument = HttpContext.Request.Form["TypeofDocument"].ToString();
+                sidesTparesponseattachment.UniqueAttachmentId = HttpContext.Request.Form["UniqueAttachmentID"].ToString();
+                sidesTparesponseattachment.ContentType = HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString();
+                sidesTparesponseattachment.ContentType = AttachmentUpload.ContentType;
                 string fileName = Path.GetFileName(AttachmentUpload.FileName);
                 string contentType = AttachmentUpload.ContentType;
                 using (MemoryStream ms = new MemoryStream())
@@ -150,11 +168,35 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     AttachmentUpload.CopyTo(ms);
                     sidesTparesponse.AttachmentData = ms.ToArray();
                 }
-                sidesTparesponse.AttachmentSize = Convert.ToInt64(HttpContext.Request.Form["AttachmentSize"].ToString());
-                _UCAContext.SidesTparesponseattachments.Update(sidesTparesponse);
+                sidesTparesponseattachment.AttachmentSize = Convert.ToInt64(HttpContext.Request.Form["AttachmentSize"].ToString());
+                _UCAContext.SidesTparesponseattachments.Update(sidesTparesponseattachment);
                 _UCAContext.SaveChanges();
 
+
             }
+
+            if (sidesTparesponse != null)
+            {
+                sidesTparesponse.TypeofDocument = HttpContext.Request.Form["TypeofDocument"].ToString();
+                sidesTparesponse.UniqueAttachmentId = HttpContext.Request.Form["UniqueAttachmentID"].ToString();
+                sidesTparesponse.DescriptionOfAttachmentCode = Convert.ToInt32( HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString());
+                if (AttachmentUpload != null)
+                {
+                    sidesTparesponse.ContentType = AttachmentUpload.ContentType;
+                    string fileName = Path.GetFileName(AttachmentUpload.FileName);
+                    string contentType = AttachmentUpload.ContentType;
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        AttachmentUpload.CopyTo(ms);
+                        sidesTparesponse.AttachmentData = ms.ToArray();
+                    }
+                    sidesTparesponse.AttachmentSize = Convert.ToInt64(HttpContext.Request.Form["AttachmentSize"].ToString());
+                    _UCAContext.SidesTparesponseattachments.Update(sidesTparesponse);
+                    _UCAContext.SaveChanges();
+                }
+
+            }
+        
         }
         //if (ModelState.IsValid)
         //{
@@ -184,7 +226,10 @@ namespace SIDES.Areas.UI_SIDES.Controllers
          {
              TPAResponseId = e.TparesponseId
          }).FirstOrDefault();
+
             var sidesTparesponse = _UCAContext.SidesTparesponseattachments.Where(e => e.TparesponseId == Request.TPAResponseId).FirstOrDefault();
+          
+            
             if (sidesTparesponse != null)
             {
                 var uploadedfiles = _UCAContext.SidesTparesponseattachments.Where(e => e.TparesponseId.Equals(sidesTparesponse.TparesponseId)).First();
@@ -197,6 +242,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     file.Close();
                 }
             }
+            
             ViewBag.Message = string.Format("Your Attachmnet file is downloaded in your directory .\\n file location : {0} ", "c:/uisides/attachments/files/");
             return View();
         }

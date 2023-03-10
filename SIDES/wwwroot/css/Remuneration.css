@@ -10,7 +10,10 @@
 
 .form_1 .form-control {
     width: 60%;
+    height: 37px !important;
 }
+
+
 
 .form_1 textarea {
     width: 60%;
@@ -18,7 +21,8 @@
 
 .form_1 .input_end {
     display: flex;
-    justify-content:center !important;
+    justify-content: center !important;
+    margin-top: 7px !important;
 }
 
 /*Added for thead save button*/
@@ -87,3 +91,4 @@
         margin: 0px 5px;
     }
 }
+

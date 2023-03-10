@@ -31,8 +31,21 @@ namespace SIDES.Areas.UI_SIDES.Controllers
         {
             try
             {
-                var ClaimModel = GetClaimantDetails(RSID);
-                return View(ClaimModel);
+                if ((RSID != 0) && (RSID > 0))
+                {
+                    var result = GetClaimantDetails(RSID);
+
+                    //if (result.SidesRequest.RequestForSeparationId.Equals(0))
+                    //{
+                    //    Response.StatusCode = 404;
+                    //    return View("ClaimNotFound", Convert.ToInt32(RSID));
+                    //}
+                }
+
+                return View(GetClaimantDetails(RSID));
+
+
+
             }
             catch(Exception ex)
             {
@@ -69,34 +82,40 @@ namespace SIDES.Areas.UI_SIDES.Controllers
         {
             var SidesTPAResponse = _uCAContext.SidesTparesponses.Where(e => e.RequestForSeparationId == RSID).FirstOrDefault();
 
-            ClaimantInformation ClaimModel = new ClaimantInformation();
-            ClaimModel.SidesRequest = _TPARequest.GetRec(RSID);
+          
 
-            List<SelectListItem> items = new List<SelectListItem>();
-            foreach (var Wagesavailabilities in _uCAContext.SidesWagesavailabilities)
+              ClaimantInformation ClaimModel = new ClaimantInformation();
+
+            if (SidesTPAResponse.RequestForSeparationId != null)
             {
-                if (SidesTPAResponse.TotalEarnedWagesNeededInd == Wagesavailabilities.WagesAvailabilityId)
+                ClaimModel.SidesRequest = _TPARequest.GetRec(RSID);
 
-                    items.Add(new SelectListItem { Text = Wagesavailabilities.WagesAvailabilityDesc, Value = Wagesavailabilities.WagesAvailabilityId.ToString(), Selected = true });
-                else
-                    items.Add(new SelectListItem { Text = Wagesavailabilities.WagesAvailabilityDesc, Value = Wagesavailabilities.WagesAvailabilityId.ToString() });
-            }
+                List<SelectListItem> items = new List<SelectListItem>();
+                foreach (var Wagesavailabilities in _uCAContext.SidesWagesavailabilities)
+                {
+                    if (SidesTPAResponse.TotalEarnedWagesNeededInd == Wagesavailabilities.WagesAvailabilityId)
 
-            ClaimModel.WasgesAvailability = items;
+                        items.Add(new SelectListItem { Text = Wagesavailabilities.WagesAvailabilityDesc, Value = Wagesavailabilities.WagesAvailabilityId.ToString(), Selected = true });
+                    else
+                        items.Add(new SelectListItem { Text = Wagesavailabilities.WagesAvailabilityDesc, Value = Wagesavailabilities.WagesAvailabilityId.ToString() });
+                }
 
-            items = new List<SelectListItem>();
-            foreach (var Weeksavailables in _uCAContext.SidesWeeksavailables)
-            {
-                if (SidesTPAResponse.TotalWeeksWorkedNeededInd == Weeksavailables.WeeksAvailableId)
+                ClaimModel.WasgesAvailability = items;
 
-                    items.Add(new SelectListItem { Text = Weeksavailables.WeeksAvailableDesc, Value = Weeksavailables.WeeksAvailableId.ToString(), Selected = true });
-                else
-                    items.Add(new SelectListItem { Text = Weeksavailables.WeeksAvailableDesc, Value = Weeksavailables.WeeksAvailableId.ToString() });
-            }
+                items = new List<SelectListItem>();
+                foreach (var Weeksavailables in _uCAContext.SidesWeeksavailables)
+                {
+                    if (SidesTPAResponse.TotalWeeksWorkedNeededInd == Weeksavailables.WeeksAvailableId)
 
-            ClaimModel.WeeksAvailable = items;
-            if ((RSID != null) && (RSID != 0))
-            {
+                        items.Add(new SelectListItem { Text = Weeksavailables.WeeksAvailableDesc, Value = Weeksavailables.WeeksAvailableId.ToString(), Selected = true });
+                    else
+                        items.Add(new SelectListItem { Text = Weeksavailables.WeeksAvailableDesc, Value = Weeksavailables.WeeksAvailableId.ToString() });
+                }
+
+                ClaimModel.WeeksAvailable = items;
+
+
+
                 var ClaimantResponse = _uCAContext.SidesTparesponses.Where(b => b.RequestForSeparationId == RSID).FirstOrDefault();
                 var ClaimantRequest = _uCAContext.SidesRequestforseparations.Where(b => b.RequestForSeparationId == RSID).FirstOrDefault();
 
@@ -105,7 +124,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 ClaimModel.RequestForSeparationId = ClaimantResponse.RequestForSeparationId;
                 ClaimModel.ClaimantJobTitle = ClaimantResponse.ClaimantJobTitle;
                 ClaimModel.SeasonalEmploymentInd = ClaimantResponse.SeasonalEmploymentInd;
-                if (ClaimantResponse.EmployerReportedClaimantFirstDayofWork.HasValue) {
+                if (ClaimantResponse.EmployerReportedClaimantFirstDayofWork.HasValue)
+                {
                     ViewBag.ClaimEF = (ClaimantResponse.EmployerReportedClaimantFirstDayofWork).Value.ToString("yyyy-MM-dd");
                 }
                 if (ClaimantResponse.EmployerReportedClaimantLastDayofWork.HasValue)
@@ -116,19 +136,20 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 {
                     ViewBag.ClaimESD = (ClaimantResponse.EffectiveSeparationDate).Value.ToString("yyyy-MM-dd");
                 }
-                
+
                 ClaimModel.TotalEarnedWages = Convert.ToDecimal(ClaimantResponse.TotalEarnedWages);
                 ClaimModel.TotalWeeksWorked = Convert.ToInt32(ClaimantResponse.TotalWeeksWorked);
-                ClaimModel.WagesEarnedAfterClaimEffectiveDate = Convert.ToDecimal( ClaimantResponse.WagesEarnedAfterClaimEffectiveDate);
-                ClaimModel.NumberOfHoursWorkedAfterClaimEffectiveDate = Convert.ToInt32( ClaimantResponse.NumberOfHoursWorkedAfterClaimEffectiveDate);
+                ClaimModel.WagesEarnedAfterClaimEffectiveDate = Convert.ToDecimal(ClaimantResponse.WagesEarnedAfterClaimEffectiveDate);
+                ClaimModel.NumberOfHoursWorkedAfterClaimEffectiveDate = Convert.ToInt32(ClaimantResponse.NumberOfHoursWorkedAfterClaimEffectiveDate);
                 ClaimModel.AverageWeeklyWage = Convert.ToDecimal(ClaimantResponse.AverageWeeklyWage);
 
                 //  ClaimModel.EmployerReportedClaimantLastDayofWork = DateOnly.FromDateTime( ClaimantResponse.EmployerReportedClaimantLastDayofWork);
                 // ClaimModel.EmployerReportedClaimantFirstDayofWork = DateOnly.FromDateTime(ClaimantResponse.EmployerReportedClaimantFirstDayofWork);
                 // ClaimModel.EffectiveSeparationDate = DateOnly.FromDateTime( ClaimantResponse.EffectiveSeparationDate);
 
-
+                //   }
             }
+            
             return ClaimModel;
         }
 

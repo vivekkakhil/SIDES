@@ -11,10 +11,19 @@
 .form_1 .form-control {
     width: 60%;
 }
+.form-control{
+    height:37px !important;
+}
+
+.form_1 textarea {
+    width: 60%;
+}
+
 
 .form_1 .input_end {
     display: flex !important;
-    justify-content:center !important;
+    justify-content: center !important;
+    margin-top: 7px;
 }
 .form_btn {
     float: right;

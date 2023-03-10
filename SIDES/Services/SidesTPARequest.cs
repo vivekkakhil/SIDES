@@ -39,6 +39,7 @@ namespace SIDES.Services
                     sidesRequestModel.ClaimantFirstName = s.ClaimantFirstName;
                     sidesRequestModel.ClaimantLastName = s.ClaimantLastName;
                     sidesRequestModel.EmployerName = s.EmployerName;
+                   
                     sidesRequestModel.RequestDate = DateOnly.FromDateTime(s.RequestDate);
                     sidesRequestModel.ResponseDueDate = DateOnly.FromDateTime(s.ResponseDueDate);
                     sidesRequestModel.Status = s.Status;
@@ -61,23 +62,28 @@ namespace SIDES.Services
         public SidesRequestModel GetRec(int RSID)
         {
  
-          var sidesrequestmodel = _UCAContext.SidesRequestforseparations.Where(e => e.RequestForSeparationId == RSID).FirstOrDefault();
+            var sidesrequestmodel = _UCAContext.SidesRequestforseparations.Where(e => e.RequestForSeparationId == RSID).FirstOrDefault();
 
             
-                SidesRequestModel sidesRequestModel = new SidesRequestModel();
-            sidesRequestModel.RequestForSeparationId = sidesrequestmodel.RequestForSeparationId;
-            sidesRequestModel.ClaimNumber = sidesrequestmodel.ClaimNumber;
-            sidesRequestModel.SSN = Convert.ToDecimal(sidesrequestmodel.Ssn);
-            sidesRequestModel.FEIN = sidesrequestmodel.Fein;
-            sidesRequestModel.ClaimantFirstName = sidesRequestModel.ClaimantFirstName;
-            sidesRequestModel.ClaimantLastName = sidesRequestModel.ClaimantLastName;
-            sidesRequestModel.EmployerName = sidesRequestModel.EmployerName;
-            sidesRequestModel.RequestDate = DateOnly.FromDateTime(sidesrequestmodel.RequestDate);
-            sidesRequestModel.ResponseDueDate = DateOnly.FromDateTime(sidesrequestmodel.ResponseDueDate);
-            sidesRequestModel.Status = sidesRequestModel.Status;
-            sidesRequestModel.RecordStatus = sidesRequestModel.RecordStatus;
+            SidesRequestModel sidesRequestModel = new SidesRequestModel();
+            if (sidesrequestmodel != null)
+            {
+                sidesRequestModel.RequestForSeparationId = sidesrequestmodel.RequestForSeparationId;
+                sidesRequestModel.ClaimNumber = sidesrequestmodel.ClaimNumber;
+                sidesRequestModel.SSN = Convert.ToDecimal(sidesrequestmodel.Ssn);
+                sidesRequestModel.FEIN = sidesrequestmodel.Fein;
+                sidesRequestModel.ClaimantFirstName = sidesRequestModel.ClaimantFirstName;
+                sidesRequestModel.ClaimantLastName = sidesRequestModel.ClaimantLastName;
+                sidesRequestModel.EmployerName = sidesRequestModel.EmployerName;
 
-            return sidesRequestModel;
+
+                sidesRequestModel.RequestDate = DateOnly.FromDateTime(sidesrequestmodel.RequestDate);
+                sidesRequestModel.ResponseDueDate = DateOnly.FromDateTime(sidesrequestmodel.ResponseDueDate);
+                sidesRequestModel.Status = sidesRequestModel.Status;
+                sidesRequestModel.RecordStatus = sidesRequestModel.RecordStatus;
+            }
+             return sidesRequestModel;
+            
 
 
         }

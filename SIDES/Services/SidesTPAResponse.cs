@@ -35,42 +35,63 @@ namespace SIDES.Services
      public   SidesResponseModel GetRec(int RequestforSeparationId)
         {
 
+            
+
             SidesResponseModel _sidesTPAResponseModel = new SidesResponseModel();
 
             var _sidesresponsemodel = _UCAContext.SidesRequestforseparations.Where(e => e.RequestForSeparationId == RequestforSeparationId).ToList();
+
+
             var _updatedsidesresponsemodel = _UCAContext.SidesTparesponses.Where(e => e.RequestForSeparationId == RequestforSeparationId).FirstOrDefault();
 
-            _sidesresponsemodel.ForEach(s =>
+            if (_updatedsidesresponsemodel == null)
             {
-                SidesResponseModel _sidesResponseModel = new SidesResponseModel();
 
-                _sidesResponseModel.RequestForSeparationId = s.RequestForSeparationId;
-                _sidesResponseModel.SSN = Convert.ToDecimal(s.Ssn);
-                _sidesResponseModel.ClaimNumber = s.ClaimNumber;
-                _sidesResponseModel.ClaimantLastName = s.ClaimantLastName;
-                _sidesResponseModel.ClaimEffectiveDate = DateOnly.FromDateTime((DateTime)s.ClaimEffectiveDate); //need to check the data for the result
-                _sidesResponseModel.RequestingStateAbbreviation = s.RequestingStateAbbreviation;
-                _sidesResponseModel.ClaimantOtherLastName = s.ClaimantLastName;
-                _sidesResponseModel.EmployerName = s.EmployerName;
-                _sidesResponseModel.StateEmployerAccountNbr = s.StateEmployerAccountNbr;
-                _sidesResponseModel.FEIN = s.Fein;
-
-                _sidesResponseModel.CorrectedStateEmployerAccountNbr = _updatedsidesresponsemodel.CorrectedStateEmployerAccountNbr;
-                _sidesResponseModel.CorrectedEmployerName = _updatedsidesresponsemodel.CorrectedEmployerName;
-                _sidesResponseModel.CorrectedFEIN = _updatedsidesresponsemodel.CorrectedFein;
-                
-
-
-                var UIoffice = _UCAContext.Uioffices.Where(e => e.UiofficeId == s.UiofficeId).FirstOrDefault();
-                if (UIoffice != null)
+                SidesTparesponse sidesTparesponse = new SidesTparesponse
                 {
-                    _sidesResponseModel.ClaimantUIOffice.UIOfficeId = UIoffice.UiofficeId;
-                    _sidesResponseModel.ClaimantUIOffice.UIOfficeFax = UIoffice.UiofficeFax;
-                    _sidesResponseModel.ClaimantUIOffice.UIOfficePhone = UIoffice.UiofficePhone;
-                    _sidesResponseModel.ClaimantUIOffice.UIOfficeName = UIoffice.UiofficeName;
-                }
-                _sidesTPAResponseModel = _sidesResponseModel;
-            });
+                    RequestForSeparationId = RequestforSeparationId
+                };
+                _UCAContext.SidesTparesponses.Add(sidesTparesponse);
+                _UCAContext.SaveChanges();
+            }
+
+
+            var _sidesTPAresponsemodel = _UCAContext.SidesTparesponses.Where(e => e.RequestForSeparationId == RequestforSeparationId).FirstOrDefault();
+
+            if ((_sidesresponsemodel != null) && (_sidesTPAresponsemodel != null))
+            {
+                _sidesresponsemodel.ForEach(s =>
+                {
+                    SidesResponseModel _sidesResponseModel = new SidesResponseModel();
+
+                    _sidesResponseModel.RequestForSeparationId = s.RequestForSeparationId;
+                    _sidesResponseModel.SSN = Convert.ToDecimal(s.Ssn);
+                    _sidesResponseModel.ClaimNumber = s.ClaimNumber;
+                    _sidesResponseModel.ClaimantLastName = s.ClaimantLastName;
+                    _sidesResponseModel.ClaimEffectiveDate = DateOnly.FromDateTime((DateTime)s.ClaimEffectiveDate); //need to check the data for the result
+                    _sidesResponseModel.RequestingStateAbbreviation = s.RequestingStateAbbreviation;
+                    _sidesResponseModel.ClaimantOtherLastName = s.ClaimantLastName;
+                    _sidesResponseModel.EmployerName = s.EmployerName;
+                    _sidesResponseModel.StateEmployerAccountNbr = s.StateEmployerAccountNbr;
+                    _sidesResponseModel.FEIN = s.Fein;
+
+                    _sidesResponseModel.CorrectedStateEmployerAccountNbr = _sidesTPAresponsemodel.CorrectedStateEmployerAccountNbr;
+                    _sidesResponseModel.CorrectedEmployerName = _sidesTPAresponsemodel.CorrectedEmployerName;
+                    _sidesResponseModel.CorrectedFEIN = _sidesTPAresponsemodel.CorrectedFein;
+
+
+
+                    var UIoffice = _UCAContext.Uioffices.Where(e => e.UiofficeId == s.UiofficeId).FirstOrDefault();
+                    if (UIoffice != null)
+                    {
+                        _sidesResponseModel.ClaimantUIOffice.UIOfficeId = UIoffice.UiofficeId;
+                        _sidesResponseModel.ClaimantUIOffice.UIOfficeFax = UIoffice.UiofficeFax;
+                        _sidesResponseModel.ClaimantUIOffice.UIOfficePhone = UIoffice.UiofficePhone;
+                        _sidesResponseModel.ClaimantUIOffice.UIOfficeName = UIoffice.UiofficeName;
+                    }
+                    _sidesTPAResponseModel = _sidesResponseModel;
+                });
+            }
             return _sidesTPAResponseModel;
         }
 

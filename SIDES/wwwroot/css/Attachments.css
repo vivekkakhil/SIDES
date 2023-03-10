@@ -38,6 +38,7 @@
 
 .form_1 .form-control {
     width: 60%;
+    height:34px !important;
 }
 
 .form_1 .input_end {

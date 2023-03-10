@@ -18,7 +18,7 @@
 
 .form_1 .input_end {
     display: flex;
-    justify-content:center;
+    justify-content:center !important;
 }
 
 .form_btn {
@@ -106,3 +106,4 @@
 lable {
     font-size: 18px;
 }
+

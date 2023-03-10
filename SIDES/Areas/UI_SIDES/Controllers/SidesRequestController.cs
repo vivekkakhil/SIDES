@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SIDES.EFCoreModels.ScafffoldEntities.Persistance;
 using SIDES.Interface;
 using SIDES.Services;
@@ -8,10 +9,12 @@ using SIDES.ViewModels;
 namespace SIDES.Areas.UI_SIDES.Controllers
 {
     [Area("UI_SIDES")]
+
     public class SidesRequestController : Controller
     {
         private ISidesTPARequest _sidesTPARequest;
         private UCAContext _uCAContext;
+
 
         public SidesRequestController(ISidesTPARequest sidesTPARequest,UCAContext uCAContext)
         {
@@ -20,12 +23,9 @@ namespace SIDES.Areas.UI_SIDES.Controllers
         }
 
 
-        public void SidesLogout()
-        {
-
-        }
 
         [HttpGet]
+      
         public IActionResult SidesRequestV(int pg = 1)
         {
             try
