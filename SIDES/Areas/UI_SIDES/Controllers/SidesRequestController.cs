@@ -39,8 +39,21 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 else
                 ViewBag.EmployerText = EmployerText;
 
-                ViewBag.RequestDate = Convert.ToDateTime( RequestDate);
-                ViewBag.ResponseDueDate = Convert.ToDateTime( ResponseDueDate);  
+                if (RequestDate != null)
+                {
+                    DateTime FromDate = Convert.ToDateTime(RequestDate);
+                    ViewBag.RequestDate = FromDate.ToString("yyyy-MM-dd");
+
+                }
+
+                if (ResponseDueDate != null)
+                {
+                    DateTime ToDate = Convert.ToDateTime(ResponseDueDate);
+                    ViewBag.ResponseDueDate = ToDate.ToString("yyyy-MM-dd");
+                }
+              
+
+              
              //   const int pageSize = 5;
                 if (pg < 1)
                     pg = 1;

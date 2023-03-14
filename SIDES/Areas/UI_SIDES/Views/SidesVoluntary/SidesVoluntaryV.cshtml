@@ -3,6 +3,7 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model SIDES.ViewModels.Voluntary
+@using SIDES.Enums
 <!DOCTYPE html>
 <html lang="en">
 
@@ -163,7 +164,10 @@ lable {
               <div class="row mt-3">
                 <div class=" col-sm-6 d-flex" id="Gotopage">
                     <label id="Gotopage" class="mx-2">Go To Page</label>
-                    <select name="Go to page" id="GotopageNext" onchange="GoToNextPageDDL()">
+                     <select  name="Go to page" id="GotopageNext"  asp-items="Html.GetEnumSelectList<GoToNextPageEnum>()" onchange="GoToNextPageDDL()"  >
+                   <option value="" >--Select--</option>
+                  </select>
+                   @* <select name="Go to page" id="GotopageNext" onchange="GoToNextPageDDL()">
                         <option value="0">Request</option>
                         <option value="1">Claimant and employer identification</option>
                         <option value="2">Claimant Information</option>
@@ -175,7 +179,7 @@ lable {
                         <option value="8">Attachments</option>
                         <option value="9">Preparer</option>
                         }
-                    </select>
+                    </select>*@
 
                 </div>
                  <div class=" col-sm-6">

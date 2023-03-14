@@ -61,19 +61,19 @@
                         @{
                             if(ViewBag.RequestDate != null){
 
-                                <input type="date" id="fromDate" value="@ViewBag.RequestDate" class="date_input" name="RequestDate" placeholder="from" min="1997-01-01" max="2030-12-31">
+                                                                        <input type="date" id="fromDate" value="@ViewBag.RequestDate" class="date_input" name="RequestDate" placeholder="from" min="1997-01-01" max="2030-12-31">
 
                             }else
                             {
-                                <input type="date" id="fromDate" class="date_input" name="RequestDate" placeholder="from" min="1997-01-01" max="2030-12-31">
+                                                                        <input type="date" id="fromDate" class="date_input" name="RequestDate" placeholder="from" min="1997-01-01" max="2030-12-31">
                             }
 
                             if(ViewBag.ResponseDueDate != null){
-                                <input type="date" id="toDate" class="date_input" name="ResponseDueDate" placeholder="to" min="1997-01-01" max="2030-12-31">
+                                                                    <input type="date" id="toDate" value="@ViewBag.ResponseDueDate" class="date_input" name="ResponseDueDate" placeholder="to" min="1997-01-01" max="2030-12-31">
 
                             }
                             else{
-                                <input type="date" id="toDate" class="date_input" name="ResponseDueDate" placeholder="to" min="1997-01-01" max="2030-12-31">
+                                                                        <input type="date" id="toDate" class="date_input" name="ResponseDueDate" placeholder="to" min="1997-01-01" max="2030-12-31">
 
                             }
 
@@ -119,19 +119,19 @@
                 string tableid = "table" + Convert.ToString(@i);
                 string datatarget = ".table" + Convert.ToString(@i);
 
-                                                                                                                                                                                                                                <tr data-toggle="collapse" id="table" data-target=@datatarget >
-                                                                                                                                                                                                                                    <td id="RequestBtn" scope="row" data-label="Status"><input type="button" class="btnSelect" value="@Item.RequestForSeparationId"></td>
+                                                                                                                                                                                                                                                                        <tr data-toggle="collapse" id="table" data-target=@datatarget >
+                                                                                                                                                                                                                                                                            <td id="RequestBtn" scope="row" data-label="Status"><input type="button" class="btnSelect" value="@Item.RequestForSeparationId"></td>
 
-                                                                                                                                                                                                                                    <td class="ClaimNumber" id="ClaimNumber" data-label="Claim No.">@Item.ClaimNumber</td>
-                                                                                                                                                                                                                                    <td class="SSN" id="SSN" data-label="SSN">@Item.SSN</td>
-                                                                                                                                                                                                                                    <td class="FEIN" id="FEIN" data-label="FEIN">@Item.FEIN</td>
-                                                                                                                                                                                                                                    <td class="Name" id="Name" data-label="Name">@Item.ClaimantFirstName</td>
-                                                                                                                                                                                                                                    <td class="Employer" id="Employer" data-label="Employer">@Item.EmployerName</td>
-                                                                                                                                                                                                                                    <td class="RequestDate" id="RequestDate" data-label="Requested">@Item.RequestDate</td>
-                                                                                                                                                                                                                                    <td class="ResponseDueDate" id="ResponseDueDate" data-label="Response Due">@Item.ResponseDueDate</td>
-                                                                                                                                                                                                                                    <td class="Status" id="Status" data-label="Status">@Item.RecordStatus</td>
-                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                </tr>
+                                                                                                                                                                                                                                                                            <td class="ClaimNumber" id="ClaimNumber" data-label="Claim No.">@Item.ClaimNumber</td>
+                                                                                                                                                                                                                                                                            <td class="SSN" id="SSN" data-label="SSN">@Item.SSN</td>
+                                                                                                                                                                                                                                                                            <td class="FEIN" id="FEIN" data-label="FEIN">@Item.FEIN</td>
+                                                                                                                                                                                                                                                                            <td class="Name" id="Name" data-label="Name">@Item.ClaimantFirstName</td>
+                                                                                                                                                                                                                                                                            <td class="Employer" id="Employer" data-label="Employer">@Item.EmployerName</td>
+                                                                                                                                                                                                                                                                            <td class="RequestDate" id="RequestDate" data-label="Requested">@Item.RequestDate</td>
+                                                                                                                                                                                                                                                                            <td class="ResponseDueDate" id="ResponseDueDate" data-label="Response Due">@Item.ResponseDueDate</td>
+                                                                                                                                                                                                                                                                            <td class="Status" id="Status" data-label="Status">@Item.RecordStatus</td>
+                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                        </tr>
                 //<td class="checkbox"><input type="checkbox"></td>
                                                                                                                                                                                                     //<tr class="collapse collapse_div @tableid">
                                                                                                                                                                                                     //    <td scope="row" data-label="Status"><input type="button" value="@Item.RequestForSeparationId"></td>
@@ -160,20 +160,20 @@
             @if (pager.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a  class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="1" >First</a>
+                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-EmployeeText="@ViewBag.EmployeeText" asp-route-EmployerText="@ViewBag.EmployerText" asp-route-RequestDate="@ViewBag.RequestDate" asp-route-ResponseDueDate="@ViewBag.ResponseDueDate" asp-route-pg="1">First</a>
                 </li>
                 <li>
-                    <a   class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@(pager.CurrentPage - 1)" >Previous</a>
+                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-EmployeeText="@ViewBag.EmployeeText" asp-route-EmployerText="@ViewBag.EmployerText" asp-route-RequestDate="@ViewBag.RequestDate" asp-route-ResponseDueDate="@ViewBag.ResponseDueDate" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
                 </li>
             }
 
             @if (pager.CurrentPage < pager.TotalPages)
             {
                 <li>
-                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@(pager.CurrentPage+1)">Next</a>
+                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-EmployeeText="@ViewBag.EmployeeText" asp-route-EmployerText="@ViewBag.EmployerText" asp-route-RequestDate="@ViewBag.RequestDate" asp-route-ResponseDueDate="@ViewBag.ResponseDueDate" asp-route-pg="@(pager.CurrentPage+1)">Next</a>
                 </li>
                 <li>
-                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-pg="@(pager.TotalPages)">Last</a>
+                    <a class="page-link" asp-controller="SidesRequest" asp-action="SidesRequestV" asp-route-EmployeeText="@ViewBag.EmployeeText" asp-route-EmployerText="@ViewBag.EmployerText" asp-route-RequestDate="@ViewBag.RequestDate" asp-route-ResponseDueDate="@ViewBag.ResponseDueDate" asp-route-pg="@(pager.TotalPages)">Last</a>
                 </li>
             }
 
@@ -224,6 +224,8 @@
     var CombinedtoDate = toYear + "-" + toMonth + "-" + toDate;
     $('#fromDate').val(CombinedtoDate);
 
+  //  var ViewBagToDate = document.getElementById("@(ViewBag.RequestDate)").value;
+
    
 
     //Calculation of the fromDate
@@ -241,7 +243,31 @@
     var fromYear = fromdateRange.getFullYear();
     var CombinedfromDate = fromYear + "-" + fromMonth + "-" + fromDate;
     $('#toDate').val(CombinedfromDate);
+
+    //if(@ViewBag.RequestDate != null)
+    //{
+    //     $('#fromDate').val(RequestDate);
+    //}
     
+    var ViewToDate = '@ViewBag.RequestDate';
+    var ViewFromDate = '@ViewBag.ResponseDueDate';
+
+   
+
+    if((ViewToDate != null) && (typeof ViewToDate != "undefined") && (ViewToDate != ""))
+      document.getElementById('fromDate').value = ViewToDate;
+      else
+       document.getElementById('fromDate').value = CombinedtoDate;
+
+      
+
+    if ((ViewFromDate != null) && (typeof ViewFromDate != "undefined") && (ViewFromDate != ""))
+        document.getElementById('toDate').value = ViewFromDate;
+        else
+        document.getElementById('toDate').value = CombinedfromDate;
+
+
+
 
 
     $(document).ready(function(){
