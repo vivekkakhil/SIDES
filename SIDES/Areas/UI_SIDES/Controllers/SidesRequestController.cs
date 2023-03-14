@@ -24,19 +24,31 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
 
 
-        [HttpGet]
-      
-        public IActionResult SidesRequestV(int pg = 1)
+       // [HttpGet]
+        public IActionResult SidesRequestV(string Go, string Cancel, string EmployeeText = "",string EmployerText = "" , DateTime? RequestDate = null,DateTime? ResponseDueDate = null,int pg = 1,int pageSize = 5)
         {
             try
             {
-                const int pageSize = 5;
+                if (EmployeeText == "")
+                    EmployeeText = null;
+                else
+                ViewBag.EmployeeText = EmployeeText;
+
+                if (EmployerText == "")
+                    EmployerText = null;
+                else
+                ViewBag.EmployerText = EmployerText;
+
+                ViewBag.RequestDate = Convert.ToDateTime( RequestDate);
+                ViewBag.ResponseDueDate = Convert.ToDateTime( ResponseDueDate);  
+             //   const int pageSize = 5;
                 if (pg < 1)
                     pg = 1;
 
+                //search filter
+                List<SidesRequestModel> srs = _sidesTPARequest.GetAll(Go,Cancel,EmployeeText, EmployerText, RequestDate, ResponseDueDate,pg);
 
-                List<SidesRequestModel> srs = _sidesTPARequest.GetAll();
-                int recsCount = srs.Count();
+                 int recsCount = srs.Count();
 
                 var pager = new Pager(recsCount, pg, pageSize);
                 int recSkip = (pg - 1) * pageSize;
