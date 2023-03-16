@@ -18,11 +18,11 @@ namespace SIDES.ViewModels
 
         public DateTime ReturntoWorkDate { get; set; }
 
-        public string ReturnToWorkInd { get; set; }
+        public string? ReturnToWorkInd { get; set; }
 
-        public string NotWorkingAvailableHoursReason { get; set; }
+        public string? NotWorkingAvailableHoursReason { get; set; }
 
-        public string WorkingAllAvailableHoursInd { get; set; }
+        public string? WorkingAllAvailableHoursInd { get; set; }
 
     }
 }

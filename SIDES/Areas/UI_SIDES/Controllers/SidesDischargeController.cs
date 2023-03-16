@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SIDES.EFCoreModels.ScafffoldEntities.Persistance;
 using SIDES.Interface;
+using SIDES.Services;
 using SIDES.ViewModels;
 
 namespace SIDES.Areas.UI_SIDES.Controllers
@@ -13,11 +14,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private UCAContext _UCAContext;
         private ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesDischargeController(UCAContext uCAContext,ISidesTPARequest TPARequest)
+        public SidesDischargeController(UCAContext uCAContext,ISidesTPARequest TPARequest, IFlagRequestStatus flagRequestStatus)
         {
             this._UCAContext = uCAContext;
             this._TPARequest = TPARequest;
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -45,12 +48,15 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     DischargeSaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     DischargeSaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    return Redirect("https://localhost:44389/ui_sides/sidesPrior/sidesPriorv/" + RSID);
+                    // return Redirect("https://localhost:44389/ui_sides/sidesPrior/sidesPriorv/" + RSID);
+                    return RedirectToAction("sidesPriorv", "sidesPrior", new { id = RSID, Area = "UI_SIDES" });
                 }
 
                 //  DischargeDetails Discahrge = GetDischargeDetails(RSID);

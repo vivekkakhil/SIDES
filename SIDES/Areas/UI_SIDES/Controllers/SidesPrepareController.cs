@@ -21,14 +21,14 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private UCAContext _UCAContext;
         private ISidesTPARequest _TPARequest;
-        private IFlagRequestStatus _FlagRequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
+       
 
-        public SidesPrepareController(UCAContext uCAContext, ISidesTPARequest TPARequest, IFlagRequestStatus FlagRequest)
+        public SidesPrepareController(UCAContext uCAContext, ISidesTPARequest TPARequest,IFlagRequestStatus flagRequestStatus)
         {
             this._UCAContext = uCAContext;
             this._TPARequest = TPARequest;
-            this._FlagRequest = FlagRequest;
-
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -58,10 +58,12 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     SavePrepareDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(SendResponse))
                 {
                     SavePrepareDetails(RSID);
+                  //  flagRequestStatus.FlagRequestStatus(RSID, "Completed");
                     GenerateResponseXml(RSID);
                 }
                 var SidesPrepare = GetPrepareDetails(RSID);
@@ -154,7 +156,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             _UCAContext.SidesTparesponses.Update(SidesTPAResponse);
             _UCAContext.SaveChanges();
 
-            _FlagRequest.FlagRequestStatus(RSID, "Pending");
+            flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
 
 

@@ -14,15 +14,15 @@ namespace SIDES.ViewModels
 
         public List<SelectListItem> SIDES_HIRINGAGREEMENTCHANGES { get; set; }
        //
-        public string HiringAgreementChangesComments {get;set;}
+        public string? HiringAgreementChangesComments {get;set;}
 
-        public string ClaimantActionstoAvoidQuitInd { get;set;}
+        public string? ClaimantActionstoAvoidQuitInd { get;set;}
 
-        public string ActionTakenComments { get;set;}
+        public string? ActionTakenComments { get;set;}
 
-        public string ContinuingWorkAvailableInd { get; set; }
+        public string? ContinuingWorkAvailableInd { get; set; }
 
-        public string NotWorkingAvailableHoursReason { get; set; }
+        public string? NotWorkingAvailableHoursReason { get; set; }
 
 
 

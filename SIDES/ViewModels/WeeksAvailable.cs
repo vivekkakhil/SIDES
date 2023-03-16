@@ -4,7 +4,7 @@
     {
         public int WeeksAvailableId { get; set; }
 
-        public string WeeksAvailableDesc { get; set; }
+        public string? WeeksAvailableDesc { get; set; }
 
 
     }

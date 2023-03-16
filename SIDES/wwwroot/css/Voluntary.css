@@ -56,4 +56,16 @@
     .space_btn {
         margin: 0px 5px;
     }
+    #Gotopage {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #GotopageNext {
+        width: 100% !important;
+    }
 }
+.prepare_btn .input {
+    margin-top: 0.5px !important;
+}
+

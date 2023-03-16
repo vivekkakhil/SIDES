@@ -17,27 +17,27 @@ namespace SIDES.ViewModels
         [Key]
         public int RequestForSeparationId { get; set; }
 
-        public string ClaimNumber { get; set; }
+        public string ? ClaimNumber { get; set; }
 
 
         public decimal SSN { get; set; }
 
         [MaxLength(9)]
-        public string FEIN { get; set; }
+        public string? FEIN { get; set; }
 
         [MaxLength(30)]
-        public string ClaimantFirstName { get; set; }
+        public string? ClaimantFirstName { get; set; }
 
         [MaxLength(30)]
-        public string ClaimantLastName { get; set; }
+        public string? ClaimantLastName { get; set; }
 
         [MaxLength(100)]
-        public string EmployerName { get; set; }
+        public string? EmployerName { get; set; }
 
-        [NotMapped]
+       
         public DateOnly RequestDate { get; set; }
 
-        [NotMapped]
+       
         public DateOnly ResponseDueDate { get; set; }
 
 

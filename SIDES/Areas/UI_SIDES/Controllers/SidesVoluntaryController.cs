@@ -13,11 +13,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
         private  UCAContext _UCAContext;
 
         private ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesVoluntaryController(UCAContext uCAContext,ISidesTPARequest TPARequest)
+        public SidesVoluntaryController(UCAContext uCAContext,ISidesTPARequest TPARequest,IFlagRequestStatus flagRequestStatus)
         {
             this._UCAContext = uCAContext;
             this._TPARequest = TPARequest;
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -45,12 +47,15 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     VoluntarySaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     VoluntarySaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    return Redirect("https://localhost:44389/ui_sides/sidesAttachments/sidesAttachmentsV/" + RSID);
+                    //  return Redirect("https://localhost:44389/ui_sides/sidesAttachments/sidesAttachmentsV/" + RSID);
+                    return RedirectToAction("sidesAttachmentsv", "sidesAttachments", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var voluntary = GetVoluntaryDetails(RSID);
                 return View(voluntary);
@@ -100,9 +105,6 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 voluntary.ActionTakenComments = SidesTPAResponse.ActionTakenComments;
                 voluntary.ContinuingWorkAvailableInd = SidesTPAResponse.ContinuingWorkAvailableInd;
                 voluntary.NotWorkingAvailableHoursReason = SidesTPAResponse.NotWorkingAvailableHoursReason;
-
-
-
             }
 
 

@@ -104,4 +104,15 @@ lable{
     .hide_data {
         flex-wrap: wrap !important;
     }
+    #Gotopage {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #GotopageNext {
+        width: 100% !important;
+    }
+}
+.prepare_btn .input {
+    margin-top: 0.5px !important;
 }

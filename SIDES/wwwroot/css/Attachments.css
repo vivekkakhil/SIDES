@@ -91,6 +91,14 @@
     .file-name {
         width: 275px !important
     }
+    #Gotopage {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #GotopageNext {
+        width: 100% !important;
+    }
     /* 
     .form_btn {
         float: none;
@@ -135,4 +143,8 @@
     vertical-align: middle;
     text-transform: uppercase;
 }
+.prepare_btn .input {
+    margin-top: 0.5px !important;
+}
+
 

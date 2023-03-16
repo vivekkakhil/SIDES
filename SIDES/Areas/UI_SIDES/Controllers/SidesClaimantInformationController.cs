@@ -12,17 +12,19 @@ using SIDES.ViewModels;
 namespace SIDES.Areas.UI_SIDES.Controllers
 {
     [Area("UI_SIDES")]
-    public class SidesClaimantInformationController:Controller
+    public class SidesClaimantInformationController : Controller
     {
-        private ISidesResponse_ClaimantInformation _claimantInformation;    
+        private ISidesResponse_ClaimantInformation _claimantInformation;
         private UCAContext _uCAContext;
         private ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesClaimantInformationController(UCAContext uCAContext, ISidesResponse_ClaimantInformation claimantInformation, ISidesTPARequest TPARequest)
+        public SidesClaimantInformationController(UCAContext uCAContext, ISidesResponse_ClaimantInformation claimantInformation, ISidesTPARequest TPARequest, IFlagRequestStatus flagRequestStatus)
         {
             this._claimantInformation = claimantInformation;
             this._uCAContext = uCAContext;
             this._TPARequest = TPARequest;
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -47,13 +49,14 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View("Error");
             }
         }
 
         [HttpPost]
+        
         [Route("UI_SIDES/SidesClaimantInformation/SidesClaimantInformationV/{RSID}")]
         public IActionResult SidesClaimantInformationV(int RSID,string Save, string Next,string check)
         {
@@ -62,11 +65,14 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     SaveClaimantDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     SaveClaimantDetails(RSID);
-                    return Redirect("https://localhost:44389/ui_sides/sidesReasonforSeparation/sidesReasonforSeparationv/" + RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
+                  //  return Redirect("https://localhost:44389/ui_sides/sidesReasonforSeparation/sidesReasonforSeparationv/" + RSID);
+                      return RedirectToAction("sidesReasonforSeparationV", "sidesReasonforSeparation", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var ClaimModel = GetClaimantDetails(RSID);
                 return View(ClaimModel);

@@ -11,11 +11,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private UCAContext _uCAContext;
         private ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesReasonforSeparation(UCAContext uCAContext,ISidesTPARequest TPARequest)
+        public SidesReasonforSeparation(UCAContext uCAContext,ISidesTPARequest TPARequest, IFlagRequestStatus flagRequestStatus)
         {
             this._uCAContext = uCAContext;
             this._TPARequest = TPARequest;
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -51,12 +53,15 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     ReasonSaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     ReasonSaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    return Redirect("https://localhost:44389/ui_sides/sidesRemuneration/sidesRemunerationv/" + RSID);
+                    // return Redirect("https://localhost:44389/ui_sides/sidesRemuneration/sidesRemunerationv/" + RSID);
+                    return RedirectToAction("sidesRemunerationV", "sidesRemuneration", new { id = RSID, Area = "UI_SIDES" });
                 }
                 ReasonforSeparation reasonforSeparation = GetReasonforSeparationDetails(RSID);
                 reasonforSeparation = GetReasonforSeparationDetails(RSID);
@@ -145,7 +150,10 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             SidesTPAResponse.ReturnToWorkInd = HttpContext.Request.Form["ReturnToWorkInd"].ToString();
 
             if(HttpContext.Request.Form["ReturnToWorkDate"].ToString() != null)
+
+            if(HttpContext.Request.Form["ReturnToWorkDate"].ToString() != null && HttpContext.Request.Form["ReturnToWorkDate"].ToString() != "")
             SidesTPAResponse.ReturnToWorkDate =   Convert.ToDateTime( HttpContext.Request.Form["ReturnToWorkDate"].ToString());
+
             SidesTPAResponse.WorkingAllAvailableHoursInd = HttpContext.Request.Form["WorkingAllAvailableHoursInd"].ToString();
             SidesTPAResponse.NotWorkingAvailableHoursReason = HttpContext.Request.Form["NotWorkingAvailableHoursReason"].ToString();
             SidesTPAResponse.LaborDisputeTypeInd = HttpContext.Request.Form["LaborDisputeTypeInd"].ToString();

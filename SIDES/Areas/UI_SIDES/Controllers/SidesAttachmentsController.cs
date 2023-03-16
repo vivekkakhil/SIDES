@@ -16,12 +16,14 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private UCAContext _UCAContext;
         private ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
         private IWebHostEnvironment _hostingEnvironment;
 
-        public SidesAttachmentsController(UCAContext uCAContext, IWebHostEnvironment hostingEnvironment, ISidesTPARequest TPARequest)
+        public SidesAttachmentsController(UCAContext uCAContext, IWebHostEnvironment hostingEnvironment, ISidesTPARequest TPARequest, IFlagRequestStatus flagRequestStatus)
         {
             this._UCAContext = uCAContext;
             this._TPARequest = TPARequest;
+            this.flagRequestStatus = flagRequestStatus;
             this._hostingEnvironment = hostingEnvironment;
         }
 
@@ -51,13 +53,16 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     AttachmentSaveDetails(RSID, AttachmentUpload);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
 
                     AttachmentSaveDetails(RSID, AttachmentUpload);
-                    return Redirect("https://localhost:44389/ui_sides/sidesPrepare/sidesPrepareV/" + RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
+                    //  return Redirect("https://localhost:44389/ui_sides/sidesPrepare/sidesPrepareV/" + RSID);
+                    return RedirectToAction("sidesPrepareV", "sidesPrepare", new { id = RSID, Area = "UI_SIDES" });
                 }
                 if (!string.IsNullOrEmpty(view))
                 {
@@ -179,6 +184,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             {
                 sidesTparesponse.TypeofDocument = HttpContext.Request.Form["TypeofDocument"].ToString();
                 sidesTparesponse.UniqueAttachmentId = HttpContext.Request.Form["UniqueAttachmentID"].ToString();
+
+                if(HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString() != "")
                 sidesTparesponse.DescriptionOfAttachmentCode = Convert.ToInt32( HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString());
                 if (AttachmentUpload != null)
                 {

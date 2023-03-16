@@ -258,18 +258,20 @@ lable {
                     <textarea rows="4" cols="50" name="PensionComments" id="notClaim">@Model.PensionComments</textarea>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class=" col-sm-6 d-flex" id="Gotopage">
+               <div class="row mt-3">
+                <div class=" col-sm-6 mb-3 d-flex" id="Gotopage">
                     <label id="Gotopage" class="mx-2">Go To Page</label>
+                     <span>
                      <select  name="Go to page" id="GotopageNext"  asp-items="Html.GetEnumSelectList<GoToNextPageEnum>()" onchange="GoToNextPageDDL()"  >
                    <option value="" >--Select--</option>
                   </select>
+                  </span>
 
                 </div>
-                <div class=" col-sm-6">
-                <input type="button" name="Cancel" value="Cancel" class="save_btn mt-2" onclick="CancelClick()">
-                <input type="submit" name="Save" value="Save" class="save_btn mt-2" >
-                <input type="submit" name="Next" value="Next" class="save_btn mt-2" >
+                <div class="col-sm-6 prepare_btn">
+                <input type="button" name="Cancel" value="Cancel" class="save_btn" onclick="CancelClick()">
+                <input type="submit" name="Save" value="Save" class="save_btn" >
+                <input type="submit" name="Next" value="Next" class="save_btn" >
                
              </div>
 

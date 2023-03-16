@@ -11,11 +11,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private UCAContext _uCAContext;
         private ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesPriorController(UCAContext uCAContext,ISidesTPARequest  TPARequest)
+        public SidesPriorController(UCAContext uCAContext,ISidesTPARequest  TPARequest,IFlagRequestStatus flagRequestStatus)
         {
             this._uCAContext = uCAContext;
             this._TPARequest = TPARequest;
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -42,11 +44,14 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     PriorSaveDetails(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     PriorSaveDetails(RSID);
-                    return Redirect("https://localhost:44389/ui_sides/sidesVoluntary/sidesvoluntaryv/" + RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
+                    // return Redirect("https://localhost:44389/ui_sides/sidesVoluntary/sidesvoluntaryv/" + RSID);
+                    return RedirectToAction("sidesVoluntaryV", "sidesVoluntary", new { id = RSID, Area = "UI_SIDES" });
                 }
                 PriorIncident priorIncident = new PriorIncident();
                 PriorIncident priorincidentmodel = new PriorIncident();
@@ -106,15 +111,18 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
             if (sidesTparesponse != null)
             {
-                if(HttpContext.Request.Form["PriorIncidentDate"].ToString() != "")
+                if(HttpContext.Request.Form["PriorIncidentDate"].ToString() != "" && HttpContext.Request.Form["PriorIncidentDate"].ToString() != null)
                 sidesTparesponse.PriorIncidentDate =   Convert.ToDateTime( HttpContext.Request.Form["PriorIncidentDate"].ToString());
+
                 sidesTparesponse.PriorIncidentReason = HttpContext.Request.Form["priorincident"].ToString();
                 sidesTparesponse.DischargeReasonComments = HttpContext.Request.Form["DischargeReasonComments"].ToString();
 
-                if (HttpContext.Request.Form["PriorIncidentWarningDate"].ToString() != "")
+                if (HttpContext.Request.Form["PriorIncidentWarningDate"].ToString() != "" && HttpContext.Request.Form["PriorIncidentWarningDate"].ToString() != null )
                     sidesTparesponse.PriorIncidentWarningDate = Convert.ToDateTime(HttpContext.Request.Form["PriorIncidentWarningDate"].ToString());
 
                 sidesTparesponse.PriorIncidentWarningDescription = HttpContext.Request.Form["PriorIncidentWarningDescription"].ToString();
+
+                if(HttpContext.Request.Form["PriorIncidentWarningInd"].ToString() != "S")
                 sidesTparesponse.PriorIncidentWarningInd = HttpContext.Request.Form["PriorIncidentWarningInd"].ToString();
 
                 _uCAContext.SidesTparesponses.Update(sidesTparesponse);

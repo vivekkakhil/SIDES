@@ -97,7 +97,7 @@
 <table id="myTable">
     <thead>
         <tr>
-            <th scope="col">Status</th>
+            <th scope="col">Response</th>
             <th scope="col">Claim No.</th>
             <th scope="col">SSN</th>
             <th scope="col">FEIN</th>
@@ -152,11 +152,11 @@
        
     </tbody>
 </table>
-<div id="PaginationTab" class="container" style="margin-top:4px;margin-left:18px;">
+<div id="PaginationTab" class="container" style="margin-top:0.5%;margin-left:18px;">
     @if (pager.TotalPages > 0)
 
     {
-        <ul class="pagination justify-content-end">
+        <ul class="pagination pagination-sm justify-content-end">
             @if (pager.CurrentPage > 1)
             {
                 <li class="page-item">

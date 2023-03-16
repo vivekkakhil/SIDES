@@ -21,6 +21,11 @@
     font-weight: 600;
     font-size: 16px;
 }
+@media only screen and (max-width: 575px) {
+    .goto_page #GotopageNext {
+        width: 83% !important;
+    }
+}
 
 .form_1 .form-control {
     width: 60%;
@@ -77,6 +82,14 @@
     .file-name {
         width: 275px !important
     }
+    #Gotopage{
+        display: flex !important;
+        flex-direction:column !important;
+    }
+
+    #GotopageNext {
+        width: 100% !important;
+    }
     /* 
     .form_btn {
         float: none;
@@ -87,6 +100,9 @@
     .space_btn {
         margin: 0px 5px;
     } */
+}
+.prepare_btn .input {
+    margin-top: 0.5px !important;
 }
 
 

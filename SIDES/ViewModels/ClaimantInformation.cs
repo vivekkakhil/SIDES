@@ -13,7 +13,7 @@ namespace SIDES.ViewModels
         public   List<SelectListItem> WeeksAvailable { get; set; }
         public List<SelectListItem> WasgesAvailability { get; set; }
 
-        public string OtherSSN { get; set; }
+        public string? OtherSSN { get; set; }
 
         [NotMapped]
         public DateOnly EmployerReportedClaimantFirstDayofWork { get; set; }
@@ -24,12 +24,12 @@ namespace SIDES.ViewModels
         [NotMapped]
         public DateOnly EffectiveSeparationDate { get; set; }
 
-        public string ClaimantNameWorkedAsForEmployer { get; set; }
+        public string? ClaimantNameWorkedAsForEmployer { get; set; }
 
-        public string ClaimantJobTitle { get; set; }
+        public string? ClaimantJobTitle { get; set; }
 
 
-        public string SeasonalEmploymentInd { get; set; }
+        public string ?SeasonalEmploymentInd { get; set; }
 
         public int TotalEarnedWagesNeededInd { get; set; }
 

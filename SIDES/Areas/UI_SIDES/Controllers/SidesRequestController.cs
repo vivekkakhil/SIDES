@@ -51,6 +51,12 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     DateTime ToDate = Convert.ToDateTime(ResponseDueDate);
                     ViewBag.ResponseDueDate = ToDate.ToString("yyyy-MM-dd");
                 }
+
+                if((Cancel != null) || (Cancel != ""))
+                {
+                    ViewBag.RequestDate = null;
+                    ViewBag.ResponseDueDate = null;
+                }
               
 
               

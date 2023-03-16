@@ -13,12 +13,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private readonly UCAContext _UCAContext;
         private readonly ISidesTPARequest _TPARequest;
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesRemunerationController(UCAContext uCAContext,ISidesTPARequest TPARequest)
+        public SidesRemunerationController(UCAContext uCAContext,ISidesTPARequest TPARequest, IFlagRequestStatus flagRequestStatus)
         {
             this._UCAContext = uCAContext;
             this._TPARequest = TPARequest;
-
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -47,12 +48,15 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 if (!string.IsNullOrEmpty(Save))
                 {
                     RemunerationDetailSave(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     RemunerationDetailSave(RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    return Redirect("https://localhost:44389/ui_sides/sidesDischarge/sidesDischargeV/" + RSID);
+                    // return Redirect("https://localhost:44389/ui_sides/sidesDischarge/sidesDischargeV/" + RSID);
+                    return RedirectToAction("sidesDischargeV", "sidesDischarge", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var Remuneration = GetRemunerationDetails(RSID);
                 return View(Remuneration);

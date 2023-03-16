@@ -15,12 +15,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
         private ISidesTPAResponse _sidesTPAResponse;
         private UCAContext _uCAContext;
-       
+        private readonly IFlagRequestStatus flagRequestStatus;
 
-        public SidesResponseController(ISidesTPAResponse sidesTPAResponse, UCAContext uCAContext)
+        public SidesResponseController(ISidesTPAResponse sidesTPAResponse, UCAContext uCAContext,IFlagRequestStatus flagRequestStatus)
         {
             this._sidesTPAResponse = sidesTPAResponse;
             this._uCAContext = uCAContext;
+            this.flagRequestStatus = flagRequestStatus;
         }
 
         [HttpGet]
@@ -31,16 +32,14 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             {
                 if ((RSID != 0) || (RSID > 0))
                 {
-
                     ViewBag.RouteId = RSID;
-                    var result = _sidesTPAResponse.GetRec(RSID);
+                    var result = _sidesTPAResponse.GetRec(RSID); 
 
                     if (result.RequestForSeparationId.Equals(0))
                     {
                         Response.StatusCode = 404;
                         return View("ClaimNotFound", Convert.ToInt32(RSID));
                     }
-
                 }
                 else
                 {
@@ -52,7 +51,6 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             {
                 return View("Error");
             }
-
         }
 
 
@@ -62,18 +60,18 @@ namespace SIDES.Areas.UI_SIDES.Controllers
         {
             try
             {
-
                 if (!string.IsNullOrEmpty(Save))
                 {
                     SaveResponseDetails(RSID);
-
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
                 }
                 if (!string.IsNullOrEmpty(Next))
                 {
                     SaveResponseDetails(RSID);
-                    return Redirect("https://localhost:44389/ui_sides/sidesClaimantInformation/sidesClaimantInformationV/" + RSID);
+                    flagRequestStatus.FlagRequestStatus(RSID, "Pending");
+                    // return Redirect("https://localhost:44389/ui_sides/sidesClaimantInformation/sidesClaimantInformationV/" + RSID);
+                    return RedirectToAction("sidesClaimantInformationV", "sidesClaimantInformation", new { id = RSID, Area = "UI_SIDES" });
                 }
-
                 var SidesResponse = _sidesTPAResponse.GetRec(Convert.ToInt32(RSID));
                 return View(SidesResponse);
             }
@@ -92,7 +90,6 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 int requestSeparationID = Convert.ToInt32(RSID);
                 SidesResponseModel _sidesResponseModel = new SidesResponseModel();
 
-
               // if (ModelState.IsValid)
                // {
 
@@ -104,12 +101,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
                     //return RedirectToAction("SaveDetails(requestSeparationID, _sidesResponseModel)", "_sidesTPAResponse");
               //  }
-                return _sidesTPAResponse.SaveDetails(requestSeparationID, _sidesResponseModel);
-
-                
+                return _sidesTPAResponse.SaveDetails(requestSeparationID, _sidesResponseModel); 
             }
-
-
             else
             {
                 throw new Exception("No data found");
