@@ -55,7 +55,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     RemunerationDetailSave(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    // return Redirect("https://localhost:44389/ui_sides/sidesDischarge/sidesDischargeV/" + RSID);
+                    // return Redirect("https://
+                    // /ui_sides/sidesDischarge/sidesDischargeV/" + RSID);
                     return RedirectToAction("sidesDischargeV", "sidesDischarge", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var Remuneration = GetRemunerationDetails(RSID);

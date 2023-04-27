@@ -60,7 +60,10 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     ReasonSaveDetails(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    // return Redirect("https://localhost:44389/ui_sides/sidesRemuneration/sidesRemunerationv/" + RSID);
+                    // return Redirect("https://
+                    //
+                    //
+                    // /ui_sides/sidesRemuneration/sidesRemunerationv/" + RSID);
                     return RedirectToAction("sidesRemunerationV", "sidesRemuneration", new { id = RSID, Area = "UI_SIDES" });
                 }
                 ReasonforSeparation reasonforSeparation = GetReasonforSeparationDetails(RSID);
@@ -121,7 +124,15 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
             foreach (var LaborDisputes in _uCAContext.SidesLabordisputetypes)
             {
-                items.Add(new SelectListItem { Text = LaborDisputes.LaborDisputeTypeDesc, Value = LaborDisputes.LaborDisputeTypeId.ToString() });
+                if (SidesTPAResponse.LaborDisputeTypeInd == LaborDisputes.LaborDisputeTypeId.ToString())
+                {
+                    items.Add(new SelectListItem { Text = LaborDisputes.LaborDisputeTypeDesc, Value = LaborDisputes.LaborDisputeTypeId.ToString(), Selected = true });
+                }
+                else
+                {
+                    items.Add(new SelectListItem { Text = LaborDisputes.LaborDisputeTypeDesc, Value = LaborDisputes.LaborDisputeTypeId.ToString() });
+
+                }
             }
 
             reasonForSeparation.SIDES_LABORDISPUTETYPES = items;
@@ -149,14 +160,28 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             SidesTPAResponse.EmployerSepReasonCode = Convert.ToInt32(HttpContext.Request.Form["EmployerSepReasonCode"].ToString());
             SidesTPAResponse.ReturnToWorkInd = HttpContext.Request.Form["ReturnToWorkInd"].ToString();
 
-            if(HttpContext.Request.Form["ReturnToWorkDate"].ToString() != null)
+            
 
-            if(HttpContext.Request.Form["ReturnToWorkDate"].ToString() != null && HttpContext.Request.Form["ReturnToWorkDate"].ToString() != "")
-            SidesTPAResponse.ReturnToWorkDate =   Convert.ToDateTime( HttpContext.Request.Form["ReturnToWorkDate"].ToString());
+           // if(HttpContext.Request.Form["ReturnToWorkDate"].ToString() != null && HttpContext.Request.Form["ReturnToWorkDate"].ToString() != "")
+
+                if(HttpContext.Request.Form["ReturnToWorkDate"].ToString() == null)
+                {
+                    SidesTPAResponse.ReturnToWorkDate = null;
+                }
+                else {
+
+                    SidesTPAResponse.ReturnToWorkDate = Convert.ToDateTime(HttpContext.Request.Form["ReturnToWorkDate"].ToString());
+                }
+           
 
             SidesTPAResponse.WorkingAllAvailableHoursInd = HttpContext.Request.Form["WorkingAllAvailableHoursInd"].ToString();
             SidesTPAResponse.NotWorkingAvailableHoursReason = HttpContext.Request.Form["NotWorkingAvailableHoursReason"].ToString();
-            SidesTPAResponse.LaborDisputeTypeInd = HttpContext.Request.Form["LaborDisputeTypeInd"].ToString();
+
+
+            if (HttpContext.Request.Form["LaborDisputeTypeInd"].ToString() == "")
+                SidesTPAResponse.LaborDisputeTypeInd = null;
+            else
+                SidesTPAResponse.LaborDisputeTypeInd = HttpContext.Request.Form["LaborDisputeTypeInd"].ToString();
 
             _uCAContext.SidesTparesponses.Update(SidesTPAResponse);
             _uCAContext.SaveChanges();

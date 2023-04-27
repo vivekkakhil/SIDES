@@ -30,12 +30,12 @@ namespace SIDES.Services
             throw new NotImplementedException();
         }
 
-      
 
-     public   SidesResponseModel GetRec(int RequestforSeparationId)
+
+        public SidesResponseModel GetRec(int RequestforSeparationId)
         {
 
-            
+
 
             SidesResponseModel _sidesTPAResponseModel = new SidesResponseModel();
 
@@ -70,14 +70,43 @@ namespace SIDES.Services
                     _sidesResponseModel.ClaimantLastName = s.ClaimantLastName;
                     _sidesResponseModel.ClaimEffectiveDate = DateOnly.FromDateTime((DateTime)s.ClaimEffectiveDate); //need to check the data for the result
                     _sidesResponseModel.RequestingStateAbbreviation = s.RequestingStateAbbreviation;
-                    _sidesResponseModel.ClaimantOtherLastName = s.ClaimantLastName;
+                    _sidesResponseModel.ClaimantOtherLastName = s.ClaimantLastName.Trim();
                     _sidesResponseModel.EmployerName = s.EmployerName;
                     _sidesResponseModel.StateEmployerAccountNbr = s.StateEmployerAccountNbr;
                     _sidesResponseModel.FEIN = s.Fein;
 
-                    _sidesResponseModel.CorrectedStateEmployerAccountNbr = _sidesTPAresponsemodel.CorrectedStateEmployerAccountNbr;
-                    _sidesResponseModel.CorrectedEmployerName = _sidesTPAresponsemodel.CorrectedEmployerName;
-                    _sidesResponseModel.CorrectedFEIN = _sidesTPAresponsemodel.CorrectedFein;
+
+
+                    if (string.IsNullOrWhiteSpace(_sidesTPAresponsemodel.CorrectedStateEmployerAccountNbr))
+                    {
+                        _sidesResponseModel.CorrectedStateEmployerAccountNbr = null;
+                    }
+                    else
+                    {
+                            _sidesResponseModel.CorrectedStateEmployerAccountNbr = _sidesTPAresponsemodel.CorrectedStateEmployerAccountNbr;
+                    }
+
+
+                    if (string.IsNullOrWhiteSpace(_sidesResponseModel.CorrectedEmployerName))
+                    {
+                        _sidesResponseModel.CorrectedEmployerName = null;
+                    }
+                    else
+                    {
+                        _sidesResponseModel.CorrectedEmployerName = _sidesTPAresponsemodel.CorrectedEmployerName;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(_sidesResponseModel.CorrectedFEIN))
+                    {
+                        _sidesResponseModel.CorrectedFEIN = null;
+                    }
+                    else
+                    {
+                        _sidesResponseModel.CorrectedFEIN = _sidesTPAresponsemodel.CorrectedFein;
+                    }
+
+
+
 
 
 
@@ -95,7 +124,7 @@ namespace SIDES.Services
             return _sidesTPAResponseModel;
         }
 
-       public SidesResponseModel SaveDetails(int RequestForSeparationId, SidesResponseModel SidesResponseChanges)
+        public SidesResponseModel SaveDetails(int RequestForSeparationId, SidesResponseModel SidesResponseChanges)
         {
             bool flag;
             var SidesRequest = _UCAContext.SidesTparesponses.Where(e => e.RequestForSeparationId == RequestForSeparationId).FirstOrDefault();
@@ -109,8 +138,8 @@ namespace SIDES.Services
                 SidesResponseChanges.CreatedDate = DateTime.Now;
                 //SidesResponseChanges.RequestForSeparationId = RequestForSeparationId;
 
-              
-              
+
+
                 SidesRequest.CreatedDate = DateTime.Now;
                 SidesRequest.CorrectedEmployerName = SidesResponseChanges.CorrectedEmployerName;
                 SidesRequest.CorrectedStateEmployerAccountNbr = SidesResponseChanges.CorrectedStateEmployerAccountNbr;

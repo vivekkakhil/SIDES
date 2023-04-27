@@ -71,7 +71,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 {
                     SaveClaimantDetails(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
-                  //  return Redirect("https://localhost:44389/ui_sides/sidesReasonforSeparation/sidesReasonforSeparationv/" + RSID);
+                  //  return Redirect("https://
+                  //  /ui_sides/sidesReasonforSeparation/sidesReasonforSeparationv/" + RSID);
                       return RedirectToAction("sidesReasonforSeparationV", "sidesReasonforSeparation", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var ClaimModel = GetClaimantDetails(RSID);

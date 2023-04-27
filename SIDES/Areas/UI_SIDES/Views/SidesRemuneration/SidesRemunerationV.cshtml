@@ -67,7 +67,7 @@ lable {
                     the claimant receive after the last day of work?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <select id="claimantSeparation" class="form-control" name="RemunerationTypeCode" asp-items="@Model.SIDES_REMUNERATION">
+                    <select id="claimantSeparationId" class="form-control" name="RemunerationTypeCode" asp-items="@Model.SIDES_REMUNERATION">
                         
                     </select>
                 </div>
@@ -78,7 +78,7 @@ lable {
                     per period?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <input type="number" class="form-control" name="RemunerationAmountPerPeriod" id="notClaim" value="@Model.RemunerationAmountPerPeriod"></input>
+                    <input type="number" class="form-control" min="0" name="RemunerationAmountPerPeriod" id="RemunerationAmountPerPeriodId" value="@Model.RemunerationAmountPerPeriod">
                 </div>
             </div>
             <div class="form-group row">
@@ -87,7 +87,7 @@ lable {
                     remuneration?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <select id="claimantSeparation" class="form-control" name="RemunerationPeriodFrequencyCode" asp-items="@Model.SIDES_REMUNERATIONFREQUENCY">
+                    <select id="RemunerationPeriodFrequencyCodeId" class="form-control" name="RemunerationPeriodFrequencyCode" asp-items="@Model.SIDES_REMUNERATIONFREQUENCY">
                        
                     </select>
                 </div>
@@ -99,7 +99,7 @@ lable {
                     issued?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <input type="date" class="form-control" id="returnDate" name="DateRemunerationIssued" value="@ViewBag.DateRemunerationIssued">
+                    <input type="date" class="form-control" id="DateRemunerationIssuedId" name="DateRemunerationIssued" value="@ViewBag.DateRemunerationIssued">
                 </div>
             </div>
             <div class="form-group row">
@@ -111,18 +111,18 @@ lable {
                         @{
                             if (Model.EmployerAllocationInd == "Y")
                             {
-                                <option value="Y" selected>Yes</option>
-                                <option value="N">No</option>
+                                            <option value="Y" selected>Yes</option>
+                                            <option value="N">No</option>
                             }
                             else if (Model.EmployerAllocationInd == "N")
                             {
-                                 <option value="Y" >Yes</option>
-                                <option selected value="N">No</option>
+                                             <option value="Y" >Yes</option>
+                                            <option selected value="N">No</option>
                             }
                             else{
-                                <option value="" selected>--Select--</option>
-                                <option value="Y">Yes</option>
-                                <option value="N">No</option>
+                                            <option value="" selected>--Select--</option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N">No</option>
                             }
                         }
                     </select>
@@ -141,7 +141,7 @@ lable {
                 <label for="earnedWages" class="col-sm-3 col-form-label">
                     What was the ending date
                     for the remuneration allocation?
-                </label></label>
+                </label>
                 <div class="col-sm-9 input_end">
                     <input type="date" class="form-control" id="AllocationEndDate" name="AllocationEndDate" value="@ViewBag.AllocationEndDate">
                 </div>
@@ -152,30 +152,30 @@ lable {
                     number of hours the claimant worked per week?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <input type="number" class="form-control"  id="weeksWorked" name="AverageNumberofHoursWorkedperWeek" value="@Model.AverageNumberofHoursWorkedperWeek">
+                    <input type="number" class="form-control"  id="AverageNumberofHoursWorkedperWeekId" name="AverageNumberofHoursWorkedperWeek" value="@Model.AverageNumberofHoursWorkedperWeek">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="weeksWorked" class="col-sm-3 col-form-label">Was the retirement mandatory?</label>
                 <div class="col-sm-9 input_end">
-                    <select id="typeOfLabour" class="form-control" name="MandatoryRetirementInd">
+                    <select id="MandatoryRetirementIndId" class="form-control" name="MandatoryRetirementInd">
                         @{
                             if (Model.MandatoryRetirementInd == "Y")
                             {
-                                <option  value="Y" selected>Yes</option>
-                                <option value="N">No</option>
+                                            <option  value="Y" selected>Yes</option>
+                                            <option value="N">No</option>
                             }
                             else if (Model.MandatoryRetirementInd == "N")
                             {
-                                <option value="Y">Yes</option>
-                                <option value="N" selected>No</option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N" selected>No</option>
 
                             }
                             else
                             {
-                                <option selected value="">--Select--</option>
-                                <option value="Y">Yes</option>
-                                <option value="N" >No</option>
+                                            <option selected value="">--Select--</option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N" >No</option>
 
                             }
                         }
@@ -185,24 +185,24 @@ lable {
             <div class="form-group row">
                 <label for="wagesEarnedLast" class="col-sm-3 col-form-label">Was the pension mandatory?</label>
                 <div class="col-sm-9 input_end">
-                    <select id="typeOfLabour" class="form-control" name="MandatoryPension">
+                    <select id="MandatoryPensionId" class="form-control" name="MandatoryPension">
                         @{
                             if (Model.MandatoryPension == "Y")
                             {
-                                <option  value="Y" selected>Yes</option>
-                                <option value="N" >No</option>
+                                            <option  value="Y" selected>Yes</option>
+                                            <option value="N" >No</option>
                             }
                             else if (Model.MandatoryPension == "N")
                             {
-                                <option value="Y">Yes</option>
-                                <option value="N" selected>No</option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N" selected>No</option>
 
                             }
                             else
                             {
-                                <option selected value="">--Select--</option>
-                                <option value="Y">Yes</option>
-                                <option value="N">No</option>
+                                            <option selected value="">--Select--</option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N">No</option>
 
                             }
                         }
@@ -215,23 +215,23 @@ lable {
                     pension?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <select id="typeOfLabour" class="form-control" name="ContributoryorNotContributoryClaimantInd">
+                    <select id="ContributoryorNotContributoryClaimantIndId" class="form-control" name="ContributoryorNotContributoryClaimantInd">
                         @{
                             if (Model.ContributoryorNotContributoryClaimantInd == "Y")
                             {
-                                <option value="Y" selected>Yes</option>
-                                <option value="N">No</option>
+                                            <option value="Y" selected>Yes</option>
+                                            <option value="N">No</option>
                             }
                             else if(Model.ContributoryorNotContributoryClaimantInd == "N")
                             {
-                                <option value="Y">Yes</option>
-                                <option  value="N" selected>No</option>
+                                            <option value="Y">Yes</option>
+                                            <option  value="N" selected>No</option>
 
                             }
                             else{
-                                <option selected value="">--Select--</option>
-                                <option value="Y" >Yes</option>
-                                <option value="N">No</option>
+                                            <option selected value="">--Select--</option>
+                                            <option value="Y" >Yes</option>
+                                            <option value="N">No</option>
 
                             }
                          }
@@ -245,7 +245,7 @@ lable {
                     that the claimant contributed?
                 </label>
                 <div class="col-sm-9 input_end">
-                    <input type="number" class="form-control"  onchange="handleChange(this)"   maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" min="0" name="ClaimantPensionContributionPercent" value="@Model.ClaimantPensionContributionPercent" />
+                    <input type="number" id="ClaimantPensionContributionPercentId" class="form-control"  onchange="handleChange(this)"   maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" min="0" name="ClaimantPensionContributionPercent" value="@Model.ClaimantPensionContributionPercent" />
                 </div>
             </div>
             <div class="form-group row">
@@ -255,7 +255,7 @@ lable {
                     the claimant's pension
                 </label>
                 <div class="col-sm-9 input_end">
-                    <textarea rows="4" cols="50" name="PensionComments" id="notClaim">@Model.PensionComments</textarea>
+                    <textarea rows="4" cols="50" name="PensionComments" id="PensionCommentsId" >@Model.PensionComments</textarea>
                 </div>
             </div>
                <div class="row mt-3">
@@ -292,6 +292,9 @@ lable {
          $("#EmployerAllocationInd").change(function () {
             if ($(this).val() == "N") {
                
+                $("#AllocationBeginDate").val(null)
+                $("#AllocationEndDate").val(null);
+
                 $("#AllocationBeginDate").attr("disabled",true); 
                 $("#AllocationEndDate").attr("disabled",true);
               
@@ -300,6 +303,62 @@ lable {
                  $("#AllocationEndDate").attr("disabled",false);
             }
         });
+
+        //  $("#claimantSeparationId").change(function () {
+        //    if ($(this).val() == 15) {
+               
+        //        $("#RemunerationAmountPerPeriodId").attr("disabled",true);
+
+        //         $("#RemunerationPeriodFrequencyCodeId").attr("disabled",true);
+        //         $("#DateRemunerationIssuedId").attr("disabled",true);
+        //         $("#EmployerAllocationInd").attr("disabled",true);
+        //         $("#AllocationBeginDate").attr("disabled",true);
+        //         $("#AllocationEndDate").attr("disabled",true);
+        //         $("#AverageNumberofHoursWorkedperWeekId").attr("disabled",true);
+        //         $("#MandatoryRetirementIndId").attr("disabled",true);
+        //         $("#MandatoryPensionId").attr("disabled",true);
+        //         $("#ContributoryorNotContributoryClaimantIndId").attr("disabled",true);
+        //         $("#ClaimantPensionContributionPercentId").attr("disabled",true);
+        //         $("#PensionCommentsId").attr("disabled",true);
+
+
+        //         $("#RemunerationAmountPerPeriodId").val(0);
+
+        //         $("#RemunerationPeriodFrequencyCodeId").val(null)
+        //         $("#DateRemunerationIssuedId").val(null);
+        //         $("#EmployerAllocationInd").val(null);
+        //         $("#AllocationBeginDate").val(null);
+        //         $("#AllocationEndDate").val(null);
+        //         $("#AverageNumberofHoursWorkedperWeekId").val(null);
+        //         $("#MandatoryRetirementIndId").val(null);
+        //         $("#MandatoryPensionId").val(null);
+        //         $("#ContributoryorNotContributoryClaimantIndId").val(null);
+        //         $("#ClaimantPensionContributionPercentId").val(0);
+        //         $("#PensionCommentsId").val(null);
+                       
+              
+        //    } 
+        //    else{
+
+        //        location.reload(true);
+                 
+
+        //         //$("#RemunerationAmountPerPeriodId").attr("disabled",false);
+
+        //         //$("#RemunerationPeriodFrequencyCodeId").attr("disabled",false);
+        //         //$("#DateRemunerationIssuedId").attr("disabled",false);
+        //         //$("#EmployerAllocationInd").attr("disabled",false);
+        //         //$("#AllocationBeginDate").attr("disabled",false);
+        //         //$("#AllocationEndDate").attr("disabled",false);
+        //         //$("#AverageNumberofHoursWorkedperWeekId").attr("disabled",false);
+        //         //$("#MandatoryRetirementIndId").attr("disabled",false);
+        //         //$("#MandatoryPensionId").attr("disabled",false);
+        //         //$("#ContributoryorNotContributoryClaimantIndId").attr("disabled",false);
+        //         //$("#ClaimantPensionContributionPercentId").attr("disabled",false);
+        //         //$("#PensionCommentsId").attr("disabled",false);
+        //    }
+        //});
+         
      });
 </script>
 <script>

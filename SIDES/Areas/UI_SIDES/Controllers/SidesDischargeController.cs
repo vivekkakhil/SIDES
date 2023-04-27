@@ -55,7 +55,9 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     DischargeSaveDetails(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    // return Redirect("https://localhost:44389/ui_sides/sidesPrior/sidesPriorv/" + RSID);
+                    // return Redirect("https://
+                    //
+                    // /ui_sides/sidesPrior/sidesPriorv/" + RSID);
                     return RedirectToAction("sidesPriorv", "sidesPrior", new { id = RSID, Area = "UI_SIDES" });
                 }
 

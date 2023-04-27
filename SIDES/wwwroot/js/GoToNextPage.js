@@ -12,48 +12,48 @@ function GoToNextPageDDL() {
 
     if (ddlvalue == "0") {
 
-        window.location.href = "https://localhost:44389/ui_sides/sidesrequest/sidesrequestv";
+        window.location.href = "http://test.evadvantage.com/ui_sides/sidesrequest/sidesrequestv";
     }
     else if (ddlvalue == "1") {
 
       
 
-        window.location.href = "https://localhost:44389/ui_sides/sidesResponse/sidesResponsev/" + q;
+        window.location.href = "http://test.evadvantage.com/ui_sides/sidesResponse/sidesResponsev/" + q;
 
     }
     else if (ddlvalue == "2") {
 
-        window.location.href = "https://localhost:44389/ui_sides/sidesClaimantInformation/sidesClaimantInformationv/" + q;
+        window.location.href = "http://test.evadvantage.com/ui_sides/sidesClaimantInformation/sidesClaimantInformationv/" + q;
     }
     else if (ddlvalue == "3") {
 
-        window.location = "https://localhost:44389/ui_sides/sidesReasonforSeparation/sidesReasonforSeparationv/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesReasonforSeparation/sidesReasonforSeparationv/" + q;
     }
     else if (ddlvalue == "4") {
-        window.location = "https://localhost:44389/ui_sides/sidesRemuneration/sidesRemunerationv/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesRemuneration/sidesRemunerationv/" + q;
 
     }
     else if (ddlvalue == "5") {
-        window.location = "https://localhost:44389/ui_sides/sidesDischarge/sidesDischargev/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesDischarge/sidesDischargev/" + q;
 
     }
 
     else if (ddlvalue == "6") {
-        window.location = "https://localhost:44389/ui_sides/sidesprior/sidespriorv/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesprior/sidespriorv/" + q;
 
     }
     else if (ddlvalue == "7") {
-        window.location = "https://localhost:44389/ui_sides/sidesvoluntary/sidesvoluntaryv/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesvoluntary/sidesvoluntaryv/" + q;
 
     }
     else if (ddlvalue == "8") {
-        window.location = "https://localhost:44389/ui_sides/sidesAttachments/sidesAttachmentsv/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesAttachments/sidesAttachmentsv/" + q;
 
     }
     else if (ddlvalue == "9") {
 
 
-        window.location = "https://localhost:44389/ui_sides/sidesPrepare/sidesPreparev/" + q;
+        window.location = "http://test.evadvantage.com/ui_sides/sidesPrepare/sidesPreparev/" + q;
 
     }
     else {
@@ -76,7 +76,7 @@ function CancelClick() {
 
 
 
-    window.location.href = "https://localhost:44389/ui_sides/sidesrequest/sidesrequestv";
+    window.location.href = "http://test.evadvantage.com/ui_sides/sidesrequest/sidesrequestv";
 
 }
 

@@ -6,6 +6,7 @@ using SIDES.Services;
 using SIDES.Services.UI_SIDES.DTO;
 using SIDES.ViewModels;
 
+
 namespace SIDES.Areas.UI_SIDES.Controllers
 {
     [Area("UI_SIDES")]
@@ -14,12 +15,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
     {
         private ISidesTPARequest _sidesTPARequest;
         private UCAContext _uCAContext;
+        private readonly ILogger<SidesRequestController> _logger;
 
-
-        public SidesRequestController(ISidesTPARequest sidesTPARequest,UCAContext uCAContext)
+        public SidesRequestController(ISidesTPARequest sidesTPARequest,UCAContext uCAContext,ILogger<SidesRequestController> logger)
         {
             this._sidesTPARequest = sidesTPARequest;
             this._uCAContext = uCAContext;
+            this._logger = logger;
         }
 
 
@@ -29,6 +31,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
         {
             try
             {
+
                 if (EmployeeText == "")
                     EmployeeText = null;
                 else
@@ -52,7 +55,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     ViewBag.ResponseDueDate = ToDate.ToString("yyyy-MM-dd");
                 }
 
-                if((Cancel != null) || (Cancel != ""))
+                if((Cancel != null))
                 {
                     ViewBag.RequestDate = null;
                     ViewBag.ResponseDueDate = null;
@@ -75,11 +78,12 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
                 var data = srs.Skip(recSkip).Take(pager.PageSize).ToList();
                 this.ViewBag.Pager = pager;
-
+             //   _logger.LogInformation("This is log from UCA", data);
                 return View(data);
             }
             catch(Exception ex)
             {
+              //  _logger.LogInformation("Error from error:", ex);
                 return View("Error");
             }
         }

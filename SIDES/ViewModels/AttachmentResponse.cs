@@ -20,12 +20,12 @@ namespace SIDES.ViewModels
 
         public string UniqueAttachmentID { get; set; }
 
-        public BigInteger AttachmentSize { get; set; }
+        public long AttachmentSize { get; set; }
 
         public string UniqueAttachmentId { get; set; }
 
         public int DescriptionofAttachmentCode { get; set; }
 
-        public Byte[] AttachmentData { get; set; }
+        public string AttachmentData { get; set; }
     }
 }

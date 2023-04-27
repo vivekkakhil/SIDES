@@ -54,7 +54,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     VoluntarySaveDetails(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
 
-                    //  return Redirect("https://localhost:44389/ui_sides/sidesAttachments/sidesAttachmentsV/" + RSID);
+                    //  return Redirect("https://
+                    //  /ui_sides/sidesAttachments/sidesAttachmentsV/" + RSID);
                     return RedirectToAction("sidesAttachmentsv", "sidesAttachments", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var voluntary = GetVoluntaryDetails(RSID);

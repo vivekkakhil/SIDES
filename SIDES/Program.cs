@@ -2,11 +2,22 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Serilog;
 using SIDES.EFCoreModels.ScafffoldEntities.Persistance;
 using SIDES.Interface;
 using SIDES.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("SidesDBConnection");
@@ -39,7 +50,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    //  app.UseExceptionHandler("/Error");
+   // app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     // app.UseHsts();
 }

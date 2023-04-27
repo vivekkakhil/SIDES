@@ -15,12 +15,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link href="~/css/Prior.css" rel="stylesheet">
     <link href="~/css/ReasonforSeparation.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
           integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
 
 </head>
 
@@ -104,13 +103,14 @@
                 </label>
 
                 <div class="col-sm-9 input_end">
-                    <textarea rows="4" cols="50"  id="NotWorkingAvailableHoursReason" name="NotWorkingAvailableHoursReason" id="notClaim">@Model.NotWorkingAvailableHoursReason</textarea>
+                    <textarea rows="4" cols="50"  id="NotWorkingAvailableHoursReason" name="NotWorkingAvailableHoursReason">@Model.NotWorkingAvailableHoursReason</textarea>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="typeOfLabour" class="col-sm-3 col-form-label">What is the type of labor dispute?</label>
                 <div class="col-sm-9 input_end">
-                    <select id="typeOfLabour" class="form-control" asp-items="@Model.SIDES_LABORDISPUTETYPES" name="LaborDisputeTypeInd">                      
+                    <select id="typeOfLabourid" class="form-control" asp-items="@Model.SIDES_LABORDISPUTETYPES" name="LaborDisputeTypeInd">  
+                        <option selected value=""></option>
                     </select>
                 </div>
             </div>
@@ -144,10 +144,18 @@
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>     
+@*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>     *@
 <script src="~/js/GoToNextPage.js"> </Script> 
 <script>
      $(document).ready(function(){
+
+         if($("#claimantSeparation").val() == 16){
+           $("#typeOfLabourid").attr("disabled",false);
+         }
+         else{
+               $("#typeOfLabourid").attr("disabled",true);
+         }
+
          $("#workingavailablehours").change(function () {
             if ($(this).val() == 2) {
                
@@ -157,8 +165,52 @@
                  $("#NotWorkingAvailableHoursReason").attr("disabled",false);
             }
         });
+
+
+         $("#claimantSeparation").change(function () {
+            if ($(this).val() == 16) {
+                
+
+                $("#typeOfLabourid").attr("disabled",false);
+               
+              
+            } else {
+                 $("#typeOfLabourid").val("")
+                 $("#typeOfLabourid").attr("disabled",true);
+            }
+        });
+
+
+         $("#returnWork").change(function () {
+
+        
+            if ($(this).val() == "N") {
+
+               
+                 $("#returnDate").val(null);
+                $("#returnDate").attr("disabled",true);
+              
+            } else {
+                 $("#returnDate").attr("disabled",false);
+            }
+        });
+
+
+        if($("#returnWork").val() == "N"){
+            
+              $("#returnDate").val(null);
+             $("#returnDate").attr("disabled",true);
+        }
+        else{
+             
+             $("#returnDate").attr("disabled",false);
+        }
      });
+
+      
+
 </script>
+
 
 
 

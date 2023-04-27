@@ -50,7 +50,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 {
                     PriorSaveDetails(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
-                    // return Redirect("https://localhost:44389/ui_sides/sidesVoluntary/sidesvoluntaryv/" + RSID);
+                    // return Redirect("https://
+                    // /ui_sides/sidesVoluntary/sidesvoluntaryv/" + RSID);
                     return RedirectToAction("sidesVoluntaryV", "sidesVoluntary", new { id = RSID, Area = "UI_SIDES" });
                 }
                 PriorIncident priorIncident = new PriorIncident();

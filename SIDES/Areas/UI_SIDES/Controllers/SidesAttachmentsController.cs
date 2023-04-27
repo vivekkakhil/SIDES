@@ -5,6 +5,7 @@ using SIDES.EFCoreModels.ScafffoldEntities.Persistance;
 using SIDES.Interface;
 using SIDES.ViewModels;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -41,7 +42,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
             {
                 return View("Error");
             }
-            
+
         }
 
         [HttpPost]
@@ -79,7 +80,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
                 return View(AttachmentModel);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View("Error");
             }
@@ -116,7 +117,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 }
                 else
                 {
-                   items.Add(new SelectListItem { Text = attachmentcode.AttachmentCode, Value = attachmentcode.AttachmentCodeId.ToString() });
+                    items.Add(new SelectListItem { Text = attachmentcode.AttachmentCode, Value = attachmentcode.AttachmentCodeId.ToString() });
                 }
 
             }
@@ -128,8 +129,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 attachments.TypeofDocument = TPAResponseAttachment.TypeofDocument;
                 if ((TPAResponseAttachment.UniqueAttachmentId == "") || (TPAResponseAttachment.UniqueAttachmentId == null))
                     attachments.UniqueAttachmentID = "01";
-               else
-                    attachments.UniqueAttachmentID = TPAResponseAttachment.UniqueAttachmentId.Trim();
+                else
+                    attachments.UniqueAttachmentID = TPAResponseAttachment.UniqueAttachmentId;
                 attachments.AttachmentSize = Convert.ToInt64(TPAResponseAttachment.AttachmentSize);
             }
 
@@ -156,7 +157,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 {
                     TparesponseId = Request.TPAResponseId
                 };
-                
+
 
                 _UCAContext.SidesTparesponseattachments.Add(sidesTparesponseattachment);
                 _UCAContext.SaveChanges();
@@ -170,7 +171,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 string contentType = AttachmentUpload.ContentType;
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    AttachmentUpload.CopyTo(ms);
+                    AttachmentUpload.CopyTo(ms)
+;
                     sidesTparesponse.AttachmentData = ms.ToArray();
                 }
                 sidesTparesponseattachment.AttachmentSize = Convert.ToInt64(HttpContext.Request.Form["AttachmentSize"].ToString());
@@ -185,8 +187,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 sidesTparesponse.TypeofDocument = HttpContext.Request.Form["TypeofDocument"].ToString();
                 sidesTparesponse.UniqueAttachmentId = HttpContext.Request.Form["UniqueAttachmentID"].ToString();
 
-                if(HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString() != "")
-                sidesTparesponse.DescriptionOfAttachmentCode = Convert.ToInt32( HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString());
+                if (HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString() != "")
+                    sidesTparesponse.DescriptionOfAttachmentCode = Convert.ToInt32(HttpContext.Request.Form["SIDESATTACHMENTCODE"].ToString());
                 if (AttachmentUpload != null)
                 {
                     sidesTparesponse.ContentType = AttachmentUpload.ContentType;
@@ -194,7 +196,8 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                     string contentType = AttachmentUpload.ContentType;
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        AttachmentUpload.CopyTo(ms);
+                        AttachmentUpload.CopyTo(ms)
+;
                         sidesTparesponse.AttachmentData = ms.ToArray();
                     }
                     sidesTparesponse.AttachmentSize = Convert.ToInt64(HttpContext.Request.Form["AttachmentSize"].ToString());
@@ -203,7 +206,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 }
 
             }
-        
+
         }
         //if (ModelState.IsValid)
         //{
@@ -235,21 +238,42 @@ namespace SIDES.Areas.UI_SIDES.Controllers
          }).FirstOrDefault();
 
             var sidesTparesponse = _UCAContext.SidesTparesponseattachments.Where(e => e.TparesponseId == Request.TPAResponseId).FirstOrDefault();
-          
-            
+
+
             if (sidesTparesponse != null)
             {
                 var uploadedfiles = _UCAContext.SidesTparesponseattachments.Where(e => e.TparesponseId.Equals(sidesTparesponse.TparesponseId)).First();
                 if (uploadedfiles.AttachmentData != null)
                 {
-                    byte[] binaryString = uploadedfiles.AttachmentData;
-                    string decodedString = Encoding.UTF8.GetString(binaryString);
-                    System.IO.StreamWriter file = new System.IO.StreamWriter("c:/uisides/attachments/files/" + uploadedfiles.TypeofDocument + "");
-                    file.Write(decodedString);
-                    file.Close();
+                    //byte[] binaryString = uploadedfiles.AttachmentData;
+                    //string decodedString = Encoding.UTF8.GetString(binaryString);
+                    //System.IO.StreamWriter file = new System.IO.StreamWriter("c:/uisides/attachments/files/" + uploadedfiles.TypeofDocument + "");
+                    //file.Write(decodedString);
+                    //file.Close();
+
+                    byte[] data = uploadedfiles.AttachmentData;
+                    string text = Convert.ToBase64String(data);
+                    var dir = @"c:/uisides/attachments/files/";  // folder location
+
+                    if (!Directory.Exists(dir))
+                    { // if it doesn't exist, create
+                        Directory.CreateDirectory(dir);
+                    }
+                    string filePath = dir + uploadedfiles.TypeofDocument + "";
+
+                    // Convert binary data to base64-encoded text
+                    FileStream f = new FileStream(filePath, FileMode.OpenOrCreate);//creating file stream  
+                    f.Write(data);//writing byte into stream  
+                    f.Close();//closing stream  
+
+
+
+
+                    Console.WriteLine("File downloaded and saved as text at: " + filePath);
+
                 }
             }
-            
+
             ViewBag.Message = string.Format("Your Attachmnet file is downloaded in your directory .\\n file location : {0} ", "c:/uisides/attachments/files/");
             return View();
         }
@@ -274,6 +298,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 sidesTparesponse.ContentType = null;
                 sidesTparesponse.UniqueAttachmentId = null;
                 sidesTparesponse.DescriptionOfAttachmentCode = 0;
+                sidesTparesponse.TypeofDocument = null;
                 _UCAContext.SidesTparesponseattachments.Update(sidesTparesponse);
 
             }

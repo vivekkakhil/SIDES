@@ -69,7 +69,13 @@ namespace SIDES.Areas.UI_SIDES.Controllers
                 {
                     SaveResponseDetails(RSID);
                     flagRequestStatus.FlagRequestStatus(RSID, "Pending");
-                    // return Redirect("https://localhost:44389/ui_sides/sidesClaimantInformation/sidesClaimantInformationV/" + RSID);
+                    // return Redirect("https://
+                    //
+                    //
+                    //
+                    //
+                    //
+                    // /ui_sides/sidesClaimantInformation/sidesClaimantInformationV/" + RSID);
                     return RedirectToAction("sidesClaimantInformationV", "sidesClaimantInformation", new { id = RSID, Area = "UI_SIDES" });
                 }
                 var SidesResponse = _sidesTPAResponse.GetRec(Convert.ToInt32(RSID));
@@ -85,7 +91,7 @@ namespace SIDES.Areas.UI_SIDES.Controllers
 
         public SidesResponseModel SaveResponseDetails(int RSID)
         {
-            if (RSID != null)
+            if (RSID > 0)
             {
                 int requestSeparationID = Convert.ToInt32(RSID);
                 SidesResponseModel _sidesResponseModel = new SidesResponseModel();

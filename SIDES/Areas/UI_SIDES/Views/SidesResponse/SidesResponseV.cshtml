@@ -1,12 +1,13 @@
-﻿@{
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+
 @using SIDES.Enums
 @model SIDES.ViewModels.SidesResponseModel
 
 
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,12 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
-        integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.css"
+          integrity="sha512-CB+XYxRC7cXZqO/8cP3V+ve2+6g6ynOnvJD6p4E4y3+wwkScH9qEOla+BTHzcwB4xKgvWn816Iv0io5l3rAOBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <link rel="stylesheet" href="~/CSS/SidesResponseNew.css" >
       
@@ -142,9 +143,21 @@ integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI
                     <div class="col-sm-6">
                         <label  >Employer Name:<label  id="EmpName">@Model.EmployerName</label></label>
                     </div>
-                    <div class="col-sm-6">
-                        <input type="text"    class="form-control"  name="DiffEmpname"  maxlength="100" onkeypress="return onlyAlphabets(event,this);" value="@Model.CorrectedEmployerName" placeholder="only alphabet are allowed"  />         
+                    <div class="col-sm-6 input_end">
+                        @{
+                            
+                            if((Model.CorrectedEmployerName != null ) || ( Model.CorrectedEmployerName != ""))
+                            {
+                                       <input type="text"    class="form-control"  name="DiffEmpname"   maxlength="100" value="@Model.CorrectedEmployerName" onkeypress="return onlyAlphabets(event,this);"  placeholder="only alphabet are allowed"  />         
                         <span  class="text-danger"></span>
+                            }
+                            else{
+                                   <input type="text"    class="form-control"  name="DiffEmpname" minlength="1"  maxlength="100"  onkeypress="return onlyAlphabets(event,this);"  placeholder="only alphabet are allowed"  />         
+                        <span  class="text-danger"></span>
+
+                            }
+                        }
+                 
                        
 
                     </div>
@@ -155,7 +168,7 @@ integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI
                     </div>
                     <div class="col-sm-6">
                         <input type="text" class="form-control"  name="DiffAcctnbr" value="@Model.CorrectedStateEmployerAccountNbr"
-                          onkeypress="return onlyNumberKey(event)" maxlength="9" placeholder="only enter numeric values"   />
+                          onkeypress="return onlyNumberKey(event)" maxlength="9"  placeholder="only enter numeric values"   />
                         <span   class="text-danger"></span>
                     </div>
                 </div>
@@ -198,10 +211,11 @@ integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI
    </form>
     </body>
    
-
  </html>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>     
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
    <script src="~/js/GoToNextPage.js"> </Script> 
    <script src="~/js/FormValidation.js"></Script>
+
+    
    
      
